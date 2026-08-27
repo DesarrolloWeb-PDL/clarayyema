@@ -111,7 +111,9 @@ export function Header({ siteContent, showCart = true }: HeaderProps) {
           </nav>
 
           <div className="flex items-center space-x-2">
-            <LanguageSwitcher />
+            <div className="hidden sm:block">
+              <LanguageSwitcher />
+            </div>
             {showCart && (
               <Button
                 variant="outline"
@@ -148,7 +150,7 @@ export function Header({ siteContent, showCart = true }: HeaderProps) {
 
         <nav 
           className={`md:hidden border-t overflow-hidden transition-all duration-300 ease-in-out ${
-            mobileMenuOpen ? 'max-h-48 opacity-100 py-4' : 'max-h-0 opacity-0 py-0'
+            mobileMenuOpen ? 'max-h-64 opacity-100 py-4' : 'max-h-0 opacity-0 py-0'
           }`}
           style={{ borderColor: theme.primaryColor + '30' }}
         >
@@ -176,6 +178,9 @@ export function Header({ siteContent, showCart = true }: HeaderProps) {
           >
             {t.navContactLabel}
           </Link>
+          <div className="mt-2 pt-2 border-t" style={{ borderColor: theme.primaryColor + '30' }}>
+            <LanguageSwitcher />
+          </div>
         </nav>
       </div>
     </header>
