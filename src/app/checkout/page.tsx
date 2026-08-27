@@ -14,6 +14,7 @@ import { toast } from '@/components/ui/use-toast';
 import { DeliveryMethod, DEFAULT_SHIPPING_COSTS, PaymentProvider, type PaymentMethodOption, type ShippingCosts } from '@/types/checkout';
 import type { CheckoutFormData, CheckoutCustomerData, CheckoutDeliveryData } from '@/types/checkout';
 import { formatCurrency } from '@/lib/format';
+import { useLanguage } from '@/components/language-provider';
 
 interface PickupPoint {
   id: string;
@@ -29,6 +30,7 @@ export default function CheckoutPage() {
   const router = useRouter();
   const items = useCartStore((state) => state.items);
   const clearCart = useCartStore((state) => state.clearCart);
+  const { t } = useLanguage();
 
   const [currentStep, setCurrentStep] = React.useState(1);
   const [mounted, setMounted] = React.useState(false);
@@ -61,7 +63,7 @@ export default function CheckoutPage() {
 
     fetch('/api/shipping-costs')
       .then((res) => {
-        if (!res.ok) throw new Error('No se pudieron cargar costos de envío')
+        if (!res.ok) throw new Error(t.checkoutErrorShipping)
         return res.json()
       })
       .then((data) => {
@@ -75,7 +77,7 @@ export default function CheckoutPage() {
 
     fetch('/api/payment-methods')
       .then((res) => {
-        if (!res.ok) throw new Error('No se pudieron cargar medios de pago')
+        if (!res.ok) throw new Error(t.checkoutErrorPayment)
         return res.json()
       })
       .then((data) => {
@@ -123,11 +125,11 @@ export default function CheckoutPage() {
 
     try {
       if (selectedPaymentProvider === PaymentProvider.MERCADO_PAGO) {
-        setProcessingMessage('Preparando conexión con Mercado Pago...');
+        setProcessingMessage(t.checkoutPreparingMp);
       } else if (selectedPaymentProvider === PaymentProvider.STRIPE) {
-        setProcessingMessage('Preparando conexión con Stripe...');
+        setProcessingMessage(t.checkoutPreparingStripe);
       } else {
-        setProcessingMessage('Procesando tu pedido...');
+        setProcessingMessage(t.checkoutProcessing);
       }
 
       await new Promise((r) => setTimeout(r, 600));
@@ -159,7 +161,7 @@ export default function CheckoutPage() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Error al procesar el pedido');
+        throw new Error(result.error || t.checkoutErrorProcessing);
       }
 
       if (formData.customerEmail) {
@@ -177,8 +179,8 @@ export default function CheckoutPage() {
 
       setProcessingMessage(
         result.paymentProvider === 'MERCADO_PAGO'
-          ? 'Serás redirigido a Mercado Pago para completar el pago...'
-          : 'Serás redirigido a Stripe para completar el pago...'
+          ? t.checkoutRedirectMp
+          : t.checkoutRedirectStripe
       );
 
       await new Promise((r) => setTimeout(r, 800));
@@ -186,8 +188,8 @@ export default function CheckoutPage() {
       window.open(redirectUrl, '_blank');
       setProcessingMessage(
         result.paymentProvider === 'MERCADO_PAGO'
-          ? 'Mercado Pago se abrió en una nueva pestaña. Completá el pago allí y volvé a esta ventana.'
-          : 'Stripe se abrió en una nueva pestaña. Completá el pago allí y volvé a esta ventana.'
+          ? t.checkoutMpOpened
+          : t.checkoutStripeOpened
       );
 
       clearTimer();
@@ -196,7 +198,7 @@ export default function CheckoutPage() {
       console.error('Checkout error:', error);
       toast({
         title: 'Error',
-        description: error instanceof Error ? error.message : 'Error al procesar el pedido',
+        description: error instanceof Error ? error.message : t.checkoutErrorProcessing,
         variant: 'destructive',
       });
       setIsSubmitting(false);
@@ -210,7 +212,7 @@ export default function CheckoutPage() {
 
   React.useEffect(() => {
     if (isSubmitting && selectedPaymentProvider === PaymentProvider.BANK_TRANSFER) {
-      setProcessingMessage('Procesando tu pedido...');
+      setProcessingMessage(t.checkoutProcessing);
     }
   }, [isSubmitting, selectedPaymentProvider]);
 
@@ -223,9 +225,9 @@ export default function CheckoutPage() {
   }
 
   const steps = [
-    { number: 1, title: 'Contacto', complete: currentStep > 1 },
-    { number: 2, title: 'Entrega', complete: currentStep > 2 },
-    { number: 3, title: 'Revisar', complete: false },
+    { number: 1, title: t.checkoutStepContact, complete: currentStep > 1 },
+    { number: 2, title: t.checkoutStepDelivery, complete: currentStep > 2 },
+    { number: 3, title: t.checkoutStepReview, complete: false },
   ];
 
   const shippingCost = currentStep >= 2 && formData.deliveryMethod
@@ -245,9 +247,9 @@ export default function CheckoutPage() {
             style={{ color: 'var(--brand-text-muted)' }}
           >
             <ArrowLeft className="h-4 w-4 mr-1" />
-            Volver a la tienda
+            {t.checkoutBack}
           </Link>
-          <h1 className="text-3xl font-bold" style={{ color: 'var(--brand-text-primary)' }}>Checkout</h1>
+          <h1 className="text-3xl font-bold" style={{ color: 'var(--brand-text-primary)' }}>{t.checkoutTitle}</h1>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -356,7 +358,7 @@ export default function CheckoutPage() {
           <div className="lg:col-span-1">
             <div className="rounded-lg shadow-sm p-6 sticky top-8 backdrop-blur-xl" style={{ backgroundColor: 'rgba(44, 44, 44, 0.85)', borderColor: 'var(--brand-border)' }}>
               <h2 className="font-semibold mb-4" style={{ color: 'var(--brand-text-primary)' }}>
-                Resumen del pedido
+                {t.checkoutResumen}
               </h2>
 
               <div className="space-y-3 mb-4">
@@ -366,7 +368,7 @@ export default function CheckoutPage() {
                       <p className="font-medium">{item.name}</p>
                       <p style={{ color: 'var(--brand-text-muted)' }}>
                         {item.quantity} x {formatCurrency(item.price)}
-                        {item.sliced && ' • Rebanado'}
+                        {item.sliced && ` • ${t.cartSliced}`}
                       </p>
                     </div>
                     <span className="font-medium">
@@ -378,29 +380,29 @@ export default function CheckoutPage() {
 
               <div className="border-t pt-4 space-y-2" style={{ borderColor: 'var(--brand-border)' }}>
                 <div className="flex justify-between text-sm">
-                  <span style={{ color: 'var(--brand-text-muted)' }}>Subtotal</span>
+                  <span style={{ color: 'var(--brand-text-muted)' }}>{t.checkoutSubtotal}</span>
                   <span className="font-medium">{formatCurrency(subtotal)}</span>
                 </div>
                 {currentStep >= 2 && formData.deliveryMethod && (
                   <div className="flex justify-between text-sm">
-                    <span style={{ color: 'var(--brand-text-muted)' }}>Envío</span>
+                    <span style={{ color: 'var(--brand-text-muted)' }}>{t.checkoutShipping}</span>
                     <span className="font-medium">
-                      {shippingCost === 0 ? 'Gratis' : formatCurrency(shippingCost)}
+                      {shippingCost === 0 ? t.checkoutFree : formatCurrency(shippingCost)}
                     </span>
                   </div>
                 )}
                 <div className="flex justify-between text-lg font-bold border-t pt-2" style={{ borderColor: 'var(--brand-border)' }}>
-                  <span>Total</span>
+                  <span>{t.checkoutTotal}</span>
                   <span className="text-brand-gold-dark">{formatCurrency(total)}</span>
                 </div>
               </div>
 
               <div className="mt-6 p-4 bg-brand-gold/5 rounded-lg">
                 <p className="text-xs text-brand-gold-dark">
-                  <strong>Nota:</strong>{' '}
+                  <strong>{t.checkoutNote}</strong>{' '}
                   {selectedPaymentProvider === PaymentProvider.BANK_TRANSFER
-                    ? 'No vas a ser redirigido: vas a recibir los datos para hacer la transferencia al confirmar el pedido.'
-                    : `Serás redirigido a ${selectedPaymentProvider === PaymentProvider.MERCADO_PAGO ? 'Mercado Pago' : 'Stripe'} para completar el pago de forma segura.`}
+                    ? t.checkoutNoteBank
+                    : `${t.checkoutNoteRedirect} ${selectedPaymentProvider === PaymentProvider.MERCADO_PAGO ? 'Mercado Pago' : 'Stripe'} para completar el pago de forma segura.`}
                 </p>
               </div>
             </div>
@@ -460,7 +462,7 @@ export default function CheckoutPage() {
             </div>
 
             <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--brand-text-primary)' }}>
-              Procesando tu pedido
+              {t.checkoutProcessing}
             </h3>
             <p className="text-sm mb-4" style={{ color: 'var(--brand-text-muted)' }}>
               {processingMessage}
@@ -494,7 +496,7 @@ export default function CheckoutPage() {
                 className="mt-6 text-sm hover:underline underline-offset-2"
                 style={{ color: 'var(--brand-text-muted)' }}
               >
-                Cerrar y volver al checkout
+                {t.checkoutClose}
               </button>
             )}
           </div>

@@ -5,6 +5,7 @@ import { ChevronDown } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { ProductCard } from '@/components/productos/product-card'
 import { cn } from '@/lib/utils'
+import { useLanguage } from '@/components/language-provider'
 
 interface CategoryProductsCardProps {
   categoria: {
@@ -18,6 +19,7 @@ interface CategoryProductsCardProps {
 
 export default function CategoryProductsCard({ categoria, dark }: CategoryProductsCardProps) {
   const [open, setOpen] = useState(false)
+  const { t } = useLanguage()
 
   return (
     <div
@@ -48,7 +50,7 @@ export default function CategoryProductsCard({ categoria, dark }: CategoryProduc
             >
               {categoria.name}
             </span>
-            <Badge variant="secondary">{categoria.productos.length} productos</Badge>
+            <Badge variant="secondary">{categoria.productos.length} {t.categoryProductCount}</Badge>
           </span>
           {categoria.description && (
             <span

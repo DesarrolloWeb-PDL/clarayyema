@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
+import { useLanguage } from '@/components/language-provider'
 
 const SUPABASE_STORAGE_PATTERN = '.supabase.co/storage/v1/object/public/'
 
@@ -20,8 +21,8 @@ function isPlaceholderUrl(url: string) {
   return url.includes(SUPABASE_STORAGE_PATTERN)
 }
 
-function buildProductPlaceholder(productName: string) {
-  const label = (productName || 'Producto artesanal').slice(0, 36)
+function buildProductPlaceholder(productName: string, label: string, updatingText: string) {
+  const name = (productName || label).slice(0, 36)
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
       <defs>
@@ -32,8 +33,8 @@ function buildProductPlaceholder(productName: string) {
       </defs>
       <rect width="1200" height="900" fill="url(#bg)"/>
       <rect x="48" y="48" width="1104" height="804" rx="36" fill="none" stroke="#92400e" stroke-width="6" opacity="0.35"/>
-      <text x="600" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" font-weight="700" fill="#78350f">${label}</text>
-      <text x="600" y="495" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#92400e">Imagen en actualización</text>
+      <text x="600" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" font-weight="700" fill="#78350f">${name}</text>
+      <text x="600" y="495" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#92400e">${updatingText}</text>
     </svg>
   `
 
@@ -43,7 +44,8 @@ function buildProductPlaceholder(productName: string) {
 export function ProductGallery({ images, productName }: { images: ProductGalleryImage[]; productName: string }) {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [brokenUrls, setBrokenUrls] = useState<Record<string, true>>({})
-  const placeholderSrc = useMemo(() => buildProductPlaceholder(productName), [productName])
+  const { t } = useLanguage()
+  const placeholderSrc = useMemo(() => buildProductPlaceholder(productName, t.productPlaceholderLabel, t.productPlaceholderUpdating), [productName, t.productPlaceholderLabel, t.productPlaceholderUpdating])
   const selectedImage = images[selectedIndex] ?? images[0]
 
   if (!selectedImage) {
@@ -99,7 +101,7 @@ export function ProductGallery({ images, productName }: { images: ProductGallery
                 index === selectedIndex ? 'border-brand-gold ring-2 ring-brand-gold/20' : 'hover:opacity-80'
               )}
               style={index !== selectedIndex ? { borderColor: 'var(--brand-border)' } : undefined}
-              aria-label={`Ver imagen ${index + 1} de ${productName}`}
+              aria-label={`${t.productGalleryViewImage} ${index + 1} de ${productName}`}
             >
               <Image
                 src={resolveImageSrc(image.url)}

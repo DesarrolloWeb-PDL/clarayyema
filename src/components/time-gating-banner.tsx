@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Clock, AlertCircle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useLanguage } from '@/components/language-provider';
 
 interface TimeGatingBannerProps {
   isOpen: boolean;
@@ -33,6 +34,8 @@ export function TimeGatingBanner({
   closingHour,
   closingMinute,
 }: TimeGatingBannerProps) {
+  const { t } = useLanguage();
+
   if (isOpen) {
     return (
       <Card className="bg-green-50 border-green-200">
@@ -44,14 +47,14 @@ export function TimeGatingBanner({
           </div>
           <div className="flex-1">
             <h3 className="font-semibold text-green-900">
-              ¡Estamos abiertos!
+              {t.timeOpen}
             </h3>
             <p className="text-sm text-green-700">
-              Realiza tu pedido entre {openingDayLabel} {String(openingHour).padStart(2, '0')}:{String(openingMinute).padStart(2, '0')} y {closingDayLabel} {String(closingHour).padStart(2, '0')}:{String(closingMinute).padStart(2, '0')}
+              {t.timeOpenBetween} {openingDayLabel} {String(openingHour).padStart(2, '0')}:{String(openingMinute).padStart(2, '0')} y {closingDayLabel} {String(closingHour).padStart(2, '0')}:{String(closingMinute).padStart(2, '0')}
             </p>
           </div>
           <Badge variant="success" className="shrink-0">
-            Abierto
+            {t.timeBadgeOpen}
           </Badge>
         </CardContent>
       </Card>
@@ -68,20 +71,20 @@ export function TimeGatingBanner({
         </div>
         <div className="flex-1">
           <h3 className="font-semibold text-red-100">
-            Temporalmente cerrado
+            {t.timeClosed}
           </h3>
           {timeRemaining && (
             <p className="text-sm text-red-200">
-              Abrimos en: {timeRemaining.days}d {timeRemaining.hours}h{' '}
+              {t.timeOpensIn} {timeRemaining.days}d {timeRemaining.hours}h{' '}
               {timeRemaining.minutes}m
             </p>
           )}
           <p className="text-xs text-red-300 mt-2">
-            Horario de pedidos: {openingDayLabel} {String(openingHour).padStart(2, '0')}:{String(openingMinute).padStart(2, '0')} a {closingDayLabel} {String(closingHour).padStart(2, '0')}:{String(closingMinute).padStart(2, '0')}
+            {t.timeSchedule} {openingDayLabel} {String(openingHour).padStart(2, '0')}:{String(openingMinute).padStart(2, '0')} a {closingDayLabel} {String(closingHour).padStart(2, '0')}:{String(closingMinute).padStart(2, '0')}
           </p>
         </div>
         <Badge variant="destructive" className="shrink-0">
-          Cerrado
+          {t.timeBadgeClosed}
         </Badge>
       </CardContent>
     </Card>

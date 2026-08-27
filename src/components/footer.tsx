@@ -56,7 +56,7 @@ export default function Footer({ siteContent }: FooterProps) {
               {theme.appTitle}
             </h3>
             <p className="text-sm" style={{ color: 'var(--brand-text-muted)' }}>
-              {siteContent.footerDescription}
+              {t.footerDescription}
             </p>
           </div>
 
@@ -66,13 +66,13 @@ export default function Footer({ siteContent }: FooterProps) {
               className="font-semibold mb-3"
               style={{ color: theme.primaryColor }}
             >
-              {siteContent.footerScheduleTitle}
+              {t.footerScheduleTitle}
             </h3>
             <p className="text-sm" style={{ color: 'var(--brand-text-muted)' }}>
-              {siteContent.footerScheduleText}
+              {t.footerScheduleText}
               <br />
               <span className="text-xs" style={{ color: 'var(--brand-text-muted)' }}>
-                {siteContent.footerDeliveryText}
+                {t.footerDeliveryText}
               </span>
             </p>
           </div>
@@ -83,7 +83,7 @@ export default function Footer({ siteContent }: FooterProps) {
               className="font-semibold mb-3"
               style={{ color: theme.primaryColor }}
             >
-              {siteContent.footerContactTitle}
+              {t.footerContactTitle}
             </h3>
             <p className="text-sm" style={{ color: 'var(--brand-text-muted)' }}>
               Email: {siteContent.contactEmail}

@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckoutCustomerData } from '@/types/checkout';
+import { useLanguage } from '@/components/language-provider';
 
 interface CustomerInfoStepProps {
   data: CheckoutCustomerData;
@@ -15,6 +16,7 @@ interface CustomerInfoStepProps {
 export function CustomerInfoStep({ data, onUpdate, onNext }: CustomerInfoStepProps) {
   const [errors, setErrors] = React.useState<Record<string, string>>({});
   const [autoAdvance, setAutoAdvance] = React.useState(false);
+  const { t } = useLanguage();
 
   const isValid =
     data.customerEmail.includes('@') &&
@@ -41,13 +43,13 @@ export function CustomerInfoStep({ data, onUpdate, onNext }: CustomerInfoStepPro
     const newErrors: Record<string, string> = {};
 
     if (!data.customerEmail || !data.customerEmail.includes('@')) {
-      newErrors.customerEmail = 'Email inválido';
+      newErrors.customerEmail = t.customerErrorEmail;
     }
     if (!data.customerName || data.customerName.length < 2) {
-      newErrors.customerName = 'El nombre debe tener al menos 2 caracteres';
+      newErrors.customerName = t.customerErrorName;
     }
     if (!data.customerPhone || data.customerPhone.length < 9) {
-      newErrors.customerPhone = 'El teléfono debe tener al menos 9 dígitos';
+      newErrors.customerPhone = t.customerErrorPhone;
     }
 
     setErrors(newErrors);
@@ -60,16 +62,16 @@ export function CustomerInfoStep({ data, onUpdate, onNext }: CustomerInfoStepPro
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Información de contacto</CardTitle>
+        <CardTitle>{t.customerInfoTitle}</CardTitle>
         <CardDescription>
-          Te enviaremos la confirmación de pedido a este email
+          {t.customerInfoDesc}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="customerEmail" className="block text-sm font-medium mb-1" style={{ color: 'var(--brand-text-primary)' }}>
-              Email *
+              {t.customerEmail}
             </label>
             <Input
               id="customerEmail"
@@ -86,7 +88,7 @@ export function CustomerInfoStep({ data, onUpdate, onNext }: CustomerInfoStepPro
 
           <div>
             <label htmlFor="customerName" className="block text-sm font-medium mb-1" style={{ color: 'var(--brand-text-primary)' }}>
-              Nombre completo *
+              {t.customerName}
             </label>
             <Input
               id="customerName"
@@ -103,7 +105,7 @@ export function CustomerInfoStep({ data, onUpdate, onNext }: CustomerInfoStepPro
 
           <div>
             <label htmlFor="customerPhone" className="block text-sm font-medium mb-1" style={{ color: 'var(--brand-text-primary)' }}>
-              Teléfono *
+              {t.customerPhone}
             </label>
             <Input
               id="customerPhone"
@@ -119,7 +121,7 @@ export function CustomerInfoStep({ data, onUpdate, onNext }: CustomerInfoStepPro
           </div>
 
           <Button type="submit" className="w-full" size="lg">
-            Continuar
+            {t.customerContinue}
           </Button>
         </form>
       </CardContent>

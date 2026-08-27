@@ -1,5 +1,6 @@
 import CategoryProductsCard from '@/components/productos/category-products-card';
 import { TimeGatingBanner } from '@/components/time-gating-banner';
+import { TranslatedHomeEmpty } from '@/components/translated-home-empty';
 import { prisma } from '@/lib/db';
 import { getTimeGatingRuntime } from '@/lib/time-gating';
 import { getThemeConfig } from '@/lib/app-theme';
@@ -198,17 +199,7 @@ export default async function HomePage() {
       {/* Products Section */}
       <section className={`container mx-auto px-4 py-12 ${themeConfig.heroImageUrl ? 'bg-black/25' : ''}`}>
         {productsData.porCategoria.length === 0 ? (
-          <div className="text-center py-20">
-            <div className="mb-6 text-6xl">🥖</div>
-            <h2 className={`text-2xl font-semibold mb-2 ${themeConfig.heroImageUrl ? 'text-white' : 'text-gray-900'}`}>
-              No hay productos disponibles
-            </h2>
-            <p className={themeConfig.heroImageUrl ? 'text-white/70' : 'text-gray-600'}>
-              {timeGatingData.isOpen
-                ? 'Pronto agregaremos productos para esta semana.'
-                : 'Vuelve cuando abramos para ver los productos disponibles.'}
-            </p>
-          </div>
+          <TranslatedHomeEmpty isOpen={timeGatingData.isOpen} heroImageUrl={themeConfig.heroImageUrl} />
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {productsData.porCategoria.map((categoria: any) => (

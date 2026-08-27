@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/db'
 import { timeGating } from '@/lib/time-gating'
-import { AddToCartButton } from '@/components/productos/add-to-cart-button'
 import { ProductGallery } from '@/components/productos/product-gallery'
+import { TranslatedProductDetail } from '@/components/translated-product-detail'
 
 export const dynamic = 'force-dynamic'
 
@@ -82,37 +82,22 @@ export default async function ProductoDetallePage({ params }: { params: { slug: 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <ProductGallery images={galleryImages} productName={product.name} />
 
-        <div className="space-y-4">
-          <p className="text-sm text-brand-gold-dark font-medium">{product.category.name}</p>
-          <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
-          <p className="text-gray-600">{product.description}</p>
-          <p className="text-2xl font-bold text-brand-gold-dark">
-            {new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(product.price)}
-          </p>
-
-          {product.weight && <p className="text-sm text-gray-500">Peso: {product.weight}g</p>}
-
-          {allergens.length > 0 && (
-            <p className="text-sm text-gray-600">Alérgenos: {allergens.join(', ')}</p>
-          )}
-
-          {product.riskNote && (
-            <p className="text-sm text-red-700">{product.riskNote}</p>
-          )}
-
-          <div className="pt-2">
-            <AddToCartButton
-              productId={product.id}
-              productName={product.name}
-              productSlug={product.slug}
-              price={product.price}
-              imageUrl={galleryImages[0]?.url ?? normalizeImageUrl(product.imageUrl)}
-              weight={product.weight ?? undefined}
-              maxStock={availableStock}
-              disabled={availableStock <= 0}
-            />
-          </div>
-        </div>
+        <TranslatedProductDetail
+          product={{
+            id: product.id,
+            name: product.name,
+            slug: product.slug,
+            description: product.description,
+            price: product.price,
+            weight: product.weight,
+            imageUrl: product.imageUrl,
+            allergens,
+            riskNote: product.riskNote,
+            category: product.category,
+          }}
+          availableStock={availableStock}
+          galleryImages={galleryImages}
+        />
       </div>
     </main>
   )

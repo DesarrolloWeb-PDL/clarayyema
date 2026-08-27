@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { normalizePublicAssetUrl } from '@/lib/url-normalizer';
 import { formatCurrency } from '@/lib/format';
+import { useLanguage } from '@/components/language-provider';
 
 interface OrderItem {
   id: string;
@@ -73,6 +74,7 @@ export default function OrderConfirmationPage() {
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
   const [origin, setOrigin] = React.useState('');
+  const { t } = useLanguage();
 
   React.useEffect(() => {
     setOrigin(window.location.origin);
@@ -110,7 +112,7 @@ export default function OrderConfirmationPage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="h-12 w-12 animate-spin text-brand-gold mx-auto mb-4" />
-          <p className="text-gray-600">Cargando información del pedido...</p>
+          <p className="text-gray-600">{t.confirmLoading}</p>
         </div>
       </div>
     );
@@ -126,12 +128,12 @@ export default function OrderConfirmationPage() {
               <CardTitle>Error</CardTitle>
             </div>
             <CardDescription>
-              {error || 'No se pudo encontrar el pedido'}
+              {error || t.confirmNotFound}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Link href="/">
-              <Button className="w-full">Volver a la tienda</Button>
+              <Button className="w-full">{t.checkoutBack}</Button>
             </Link>
           </CardContent>
         </Card>
@@ -146,9 +148,9 @@ export default function OrderConfirmationPage() {
   };
 
   const deliveryNames = {
-    PICKUP_POINT: 'Recogida en punto',
-    LOCAL_DELIVERY: 'Envío local',
-    NATIONAL_COURIER: 'Mensajería nacional',
+    PICKUP_POINT: t.deliveryMethodNamePickup,
+    LOCAL_DELIVERY: t.deliveryMethodNameLocal,
+    NATIONAL_COURIER: t.deliveryMethodNameCourier,
   };
 
   const DeliveryIcon = deliveryIcons[order.deliveryMethod as keyof typeof deliveryIcons];
@@ -197,13 +199,13 @@ export default function OrderConfirmationPage() {
               <AlertCircle className="h-10 w-10 text-yellow-600" />
             </div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Pago pendiente
+              {t.confirmPaymentPending}
             </h1>
             <p className="text-lg text-gray-600">
-              El pago con Mercado Pago no se completó o fue cancelado.
+              {t.confirmPaymentPendingDesc}
             </p>
             <p className="text-sm text-gray-500 mt-2">
-              Pedido: <strong>{order.orderNumber}</strong> — Podés volver a intentar el pago desde la sección de pedidos.
+              Pedido: <strong>{order.orderNumber}</strong> — {t.confirmPaymentRetry}
             </p>
           </div>
         ) : (
@@ -212,13 +214,13 @@ export default function OrderConfirmationPage() {
               <CheckCircle className="h-10 w-10 text-green-600" />
             </div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              ¡Pedido confirmado!
+              {t.confirmTitle}
             </h1>
             <p className="text-lg text-gray-600">
-              Gracias por tu compra, {order.customerName}
+              {t.confirmThanks}, {order.customerName}
             </p>
             <p className="text-sm text-gray-500 mt-2">
-              Número de pedido: <strong>{order.orderNumber}</strong>
+              {t.confirmOrderNumber}: <strong>{order.orderNumber}</strong>
             </p>
           </div>
         )}
@@ -227,11 +229,11 @@ export default function OrderConfirmationPage() {
         <div className="flex justify-center mb-6 gap-4 no-print">
           <Button onClick={() => window.print()} className="flex items-center gap-2">
             <Printer className="h-4 w-4" />
-            Imprimir comprobante
+            {t.confirmPrint}
           </Button>
           <Button onClick={handleSendWhatsApp} className="flex items-center gap-2" style={{ backgroundColor: '#25D366', color: 'white' }}>
             <MessageCircle className="h-4 w-4" />
-            Enviar por WhatsApp
+            {t.confirmSendWhatsApp}
           </Button>
         </div>
 
@@ -281,7 +283,7 @@ export default function OrderConfirmationPage() {
             )}
           </div>
           <div className="border-t-2 border-dashed mt-3 pt-2 text-center">
-            <p className="text-[10px] text-gray-400">Presentá este comprobante al retirar tu pedido</p>
+            <p className="text-[10px] text-gray-400">{t.confirmShowAtPickup}</p>
           </div>
         </div>
 
@@ -289,8 +291,8 @@ export default function OrderConfirmationPage() {
         <Card className="mb-6 bg-blue-50 border-blue-200 no-print">
           <CardContent className="p-4">
             <p className="text-sm text-blue-800">
-              📧 Si el email está bien ingresado, recibirás la confirmación en{' '}
-              <strong>{order.customerEmail}</strong> con los detalles de tu pedido.
+              📧 {t.confirmEmailNotice}{' '}
+              <strong>{order.customerEmail}</strong>
             </p>
           </CardContent>
         </Card>
@@ -481,14 +483,14 @@ export default function OrderConfirmationPage() {
                 <div className="pt-4 border-t">
                   <Link href="/">
                     <Button variant="outline" className="w-full">
-                      Volver a la tienda
+                      {t.checkoutBack}
                     </Button>
                   </Link>
                 </div>
 
                 <div className="bg-brand-gold/5 rounded-lg p-4">
                   <p className="text-xs text-brand-gold-dark">
-                    <strong>📞 ¿Necesitas ayuda?</strong>
+                    <strong>📞 {t.confirmNeedHelp}</strong>
                     <br />
                     Contáctanos en contacto@tiempobakery.com
                   </p>

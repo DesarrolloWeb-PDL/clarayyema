@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { MessageCircle, X } from 'lucide-react'
 import { WhatsAppIcon } from '@/components/icons/whatsapp-icon'
+import { useLanguage } from '@/components/language-provider'
 import type { SiteContent } from '@/lib/site-content.shared'
 
 interface WhatsAppBotProps {
@@ -15,32 +16,34 @@ interface FAQItem {
   answer: string
 }
 
-const FAQ_ITEMS: FAQItem[] = [
-  {
-    question: '🍞 ¿Qué es el pan de masa madre?',
-    answer: 'El pan de masa madre es un pan fermentado naturalmente con una masa de harina y agua que captura levaduras salvajes del ambiente. No usamos levadura industrial: fermentamos lento para obtener mejor sabor, textura y digestibilidad.',
-  },
-  {
-    question: '📅 ¿Cuándo se entregan los pedidos?',
-    answer: 'La preventa abre los miércoles a las 18:00 y cierra el domingo a las 20:00. La entrega se realiza el día del horneado, que coordinamos según tu punto de recogida o envío.',
-  },
-  {
-    question: '🚚 ¿Hacen envíos a domicilio?',
-    answer: 'Sí, ofrecemos reparto local dentro del casco urbano y mensajería urgente para otras zonas. El reparto local se coordina el mismo día del horneado.',
-  },
-  {
-    question: '🌾 ¿Tienen opciones sin gluten?',
-    answer: 'Nuestros panes contienen trigo. Si tenés intolerancia o alergia, consultanos por opciones específicas o productos alternativos que podamos preparar.',
-  },
-  {
-    question: '🛒 ¿Cómo hago mi pedido?',
-    answer: 'Entrá a nuestra tienda online, elegí los productos y completá el checkout. Podés pagar con Mercado Pago, tarjeta o transferencia bancaria. ¡Es rápido y seguro!',
-  },
-  {
-    question: '📍 ¿Dónde retiran los pedidos?',
-    answer: 'Tenemos puntos de recogida en distintas zonas de Utrera. Elegís el que más te convenga al hacer tu pedido. ¡Coordinamos todo para que sea fácil!',
-  },
-]
+function getFaqItems(t: ReturnType<typeof import('@/components/language-provider')['useLanguage']>['t']): FAQItem[] {
+  return [
+    {
+      question: `🍞 ${t.whatsappFaqSourdough}`,
+      answer: t.whatsappFaqSourdoughAnswer,
+    },
+    {
+      question: `📅 ${t.whatsappFaqDelivery}`,
+      answer: t.whatsappFaqDeliveryAnswer,
+    },
+    {
+      question: `🚚 ${t.whatsappFaqLocalDelivery}`,
+      answer: t.whatsappFaqLocalDeliveryAnswer,
+    },
+    {
+      question: `🌾 ${t.whatsappFaqGluten}`,
+      answer: t.whatsappFaqGlutenAnswer,
+    },
+    {
+      question: `🛒 ${t.whatsappFaqOrder}`,
+      answer: t.whatsappFaqOrderAnswer,
+    },
+    {
+      question: `📍 ${t.whatsappFaqPickup}`,
+      answer: t.whatsappFaqPickupAnswer,
+    },
+  ]
+}
 
 function cleanPhone(phone: string): string {
   return phone.replace(/[^0-9]/g, '')
@@ -50,6 +53,7 @@ export default function WhatsAppBot({ siteContent }: WhatsAppBotProps) {
   const pathname = usePathname()
   const [mounted, setMounted] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const { t } = useLanguage()
 
   useEffect(() => {
     setMounted(true)
@@ -58,6 +62,7 @@ export default function WhatsAppBot({ siteContent }: WhatsAppBotProps) {
   if (!mounted || pathname.startsWith('/admin')) return null
 
   const phone = cleanPhone(siteContent.contactWhatsapp)
+  const FAQ_ITEMS = getFaqItems(t)
 
   const handleQuestionClick = (item: FAQItem) => {
     const message = encodeURIComponent(item.answer)
@@ -79,7 +84,7 @@ export default function WhatsAppBot({ siteContent }: WhatsAppBotProps) {
               </div>
               <div>
                 <h3 className="font-semibold text-white text-sm">Tiempo Masa Madre</h3>
-                <p className="text-xs text-white/80">Respondemos al instante</p>
+                <p className="text-xs text-white/80">{t.whatsappRespond}</p>
               </div>
             </div>
             <button
@@ -93,7 +98,7 @@ export default function WhatsAppBot({ siteContent }: WhatsAppBotProps) {
           {/* Mensaje de bienvenida */}
           <div className="px-4 py-3 border-b" style={{ borderColor: 'var(--brand-border)' }}>
             <p className="text-sm" style={{ color: 'var(--brand-text-muted)' }}>
-              ¡Hola! 👋 Elegí una pregunta frecuente o escribinos directo:
+              {t.whatsappGreeting}
             </p>
           </div>
 
@@ -115,14 +120,14 @@ export default function WhatsAppBot({ siteContent }: WhatsAppBotProps) {
           <div className="px-4 py-3 border-t" style={{ borderColor: 'var(--brand-border)' }}>
             <button
               onClick={() => {
-                const message = encodeURIComponent('Hola, vengo de Tiempo Masa Madre...')
+                const message = encodeURIComponent(t.whatsappDefaultMessage)
                 const url = `https://wa.me/${phone}?text=${message}`
                 window.open(url, '_blank')
                 setIsOpen(false)
               }}
               className="w-full py-2 bg-[#25D366] hover:bg-[#20b858] text-white font-medium rounded-lg transition-colors text-sm"
             >
-              💬 Escribir mensaje libre
+              💬 {t.whatsappFreeMessage}
             </button>
           </div>
         </div>
@@ -131,7 +136,7 @@ export default function WhatsAppBot({ siteContent }: WhatsAppBotProps) {
       {/* Botón flotante */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        aria-label={isOpen ? 'Cerrar chat' : 'Abrir chat de WhatsApp'}
+        aria-label={isOpen ? t.whatsappChatClose : t.whatsappChatOpen}
         className="flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-all hover:scale-110"
         style={{ backgroundColor: '#25D366' }}
       >

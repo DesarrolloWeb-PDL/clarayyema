@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { AddToCartButton } from './add-to-cart-button';
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@/lib/format';
+import { useLanguage } from '@/components/language-provider';
 
 const SUPABASE_STORAGE_PATTERN = '.supabase.co/storage/v1/object/public/'
 
@@ -74,6 +75,7 @@ export function ProductCard({
   stock,
   category,
 }: ProductCardProps) {
+  const { t } = useLanguage();
   const galleryImages = React.useMemo(() => {
     const primary = {
       url: normalizeImageUrl(imageUrl),
@@ -142,10 +144,10 @@ export function ProductCard({
       >
         <Link
           href={`/productos/${slug}`}
-          aria-label={`Ver detalle de ${name}`}
+          aria-label={`${t.productDetailOf} ${name}`}
           className="absolute inset-0 z-10"
         >
-          <span className="sr-only">Ver detalle de {name}</span>
+          <span className="sr-only">{t.productDetailOf} {name}</span>
         </Link>
 
         <Image
@@ -162,7 +164,7 @@ export function ProductCard({
           <>
             <div className="absolute bottom-2 left-2 z-20 flex items-center gap-1 rounded-full bg-black/45 px-2 py-1 text-[11px] text-white">
               <span>{galleryImages.length}</span>
-              <span>fotos</span>
+              <span>{t.productPhotos}</span>
             </div>
 
             <div
@@ -189,7 +191,7 @@ export function ProductCard({
                 type="button"
                 onClick={(event) => shiftMobileImage(event, -1)}
                 className="rounded-full bg-black/35 p-2 text-white backdrop-blur-sm transition hover:bg-black/55"
-                aria-label={`Ver foto anterior de ${name}`}
+                aria-label={`${t.productPhotoPrev} ${name}`}
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
@@ -200,7 +202,7 @@ export function ProductCard({
                 type="button"
                 onClick={(event) => shiftMobileImage(event, 1)}
                 className="rounded-full bg-black/35 p-2 text-white backdrop-blur-sm transition hover:bg-black/55"
-                aria-label={`Ver foto siguiente de ${name}`}
+                aria-label={`${t.productPhotoNext} ${name}`}
               >
                 <ChevronRight className="h-4 w-4" />
               </button>
@@ -210,13 +212,13 @@ export function ProductCard({
 
         {stock.lowStock && stock.hasStock && (
           <Badge variant="warning" className="absolute right-2 top-2 z-20">
-            ¡Últimas unidades!
+            {t.productLowStock}
           </Badge>
         )}
 
         {!stock.hasStock && (
           <Badge variant="destructive" className="absolute right-2 top-2 z-20">
-            Agotado
+            {t.productOutOfStock}
           </Badge>
         )}
       </div>
@@ -263,7 +265,7 @@ export function ProductCard({
         )}
 
         {stock.hasStock && stock.available < 999 && (
-          <p className="text-sm" style={{ color: 'var(--brand-text-muted)' }}>{stock.available} disponibles</p>
+          <p className="text-sm" style={{ color: 'var(--brand-text-muted)' }}>{stock.available} {t.productAvailable}</p>
         )}
       </CardContent>
 

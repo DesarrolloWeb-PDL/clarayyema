@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { MapPin, Truck, Package } from 'lucide-react';
 import { DeliveryMethod, type ShippingCosts } from '@/types/checkout';
 import { formatCurrency } from '@/lib/format';
+import { useLanguage } from '@/components/language-provider';
 
 interface PickupPoint {
   id: string;
@@ -51,6 +52,7 @@ export function DeliveryStep({
 }: DeliveryStepProps) {
   const [errors, setErrors] = React.useState<Record<string, string>>({});
   const [autoAdvance, setAutoAdvance] = React.useState(false);
+  const { t } = useLanguage();
 
   const isDeliveryValid =
     selectedMethod === DeliveryMethod.PICKUP_POINT
@@ -81,7 +83,7 @@ export function DeliveryStep({
     const newErrors: Record<string, string> = {};
 
     if (selectedMethod === DeliveryMethod.PICKUP_POINT && !pickupLocationId) {
-      newErrors.pickup = 'Selecciona un punto de recogida';
+      newErrors.pickup = t.deliveryErrorPickup;
     }
 
     if (
@@ -89,9 +91,9 @@ export function DeliveryStep({
         selectedMethod === DeliveryMethod.NATIONAL_COURIER) &&
       (!address || !city || !postalCode)
     ) {
-      if (!address) newErrors.address = 'La dirección es requerida';
-      if (!city) newErrors.city = 'La ciudad es requerida';
-      if (!postalCode) newErrors.postalCode = 'El código postal es requerido';
+      if (!address) newErrors.address = t.deliveryErrorAddress;
+      if (!city) newErrors.city = t.deliveryErrorCity;
+      if (!postalCode) newErrors.postalCode = t.deliveryErrorPostal;
     }
 
     setErrors(newErrors);
@@ -105,22 +107,22 @@ export function DeliveryStep({
     {
       method: DeliveryMethod.PICKUP_POINT,
       icon: MapPin,
-      title: 'Recogida en punto',
-      description: 'Gratis - Recoge en uno de nuestros puntos de venta',
+      title: t.deliveryPickup,
+      description: t.deliveryPickupDesc,
       cost: shippingCosts.PICKUP_POINT,
     },
     {
       method: DeliveryMethod.LOCAL_DELIVERY,
       icon: Truck,
-      title: 'Envío local (Utrera)',
-      description: 'Entrega a domicilio en Utrera',
+      title: t.deliveryLocal,
+      description: t.deliveryLocalDesc,
       cost: shippingCosts.LOCAL_DELIVERY,
     },
     {
       method: DeliveryMethod.NATIONAL_COURIER,
       icon: Package,
-      title: 'Mensajería nacional',
-      description: 'Envío a toda España',
+      title: t.deliveryCourier,
+      description: t.deliveryCourierDesc,
       cost: shippingCosts.NATIONAL_COURIER,
     },
   ];
@@ -128,9 +130,9 @@ export function DeliveryStep({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Método de entrega</CardTitle>
+        <CardTitle>{t.deliveryTitle}</CardTitle>
         <CardDescription>
-          Selecciona cómo quieres recibir tu pedido
+          {t.deliveryDesc}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -179,7 +181,7 @@ export function DeliveryStep({
                       variant={isSelected ? 'default' : 'secondary'}
                       className="shrink-0"
                     >
-                      {option.cost === 0 ? 'Gratis' : formatCurrency(option.cost)}
+                      {option.cost === 0 ? t.checkoutFree : formatCurrency(option.cost)}
                     </Badge>
                   </div>
                 </button>
@@ -191,7 +193,7 @@ export function DeliveryStep({
           {selectedMethod === DeliveryMethod.PICKUP_POINT && (
             <div className="space-y-3">
               <label className="block text-sm font-medium" style={{ color: 'var(--brand-text-primary)' }}>
-                Selecciona punto de recogida *
+                {t.deliverySelectPickup}
               </label>
               {pickupPoints.map((point) => (
                 <button
@@ -230,7 +232,7 @@ export function DeliveryStep({
                   className="block text-sm font-medium mb-1"
                   style={{ color: 'var(--brand-text-primary)' }}
                 >
-                  Dirección *
+                  {t.deliveryAddress}
                 </label>
                 <Input
                   id="address"
@@ -252,7 +254,7 @@ export function DeliveryStep({
                     className="block text-sm font-medium mb-1"
                     style={{ color: 'var(--brand-text-primary)' }}
                   >
-                    Ciudad *
+                    {t.deliveryCity}
                   </label>
                   <Input
                     id="city"
@@ -273,7 +275,7 @@ export function DeliveryStep({
                     className="block text-sm font-medium mb-1"
                     style={{ color: 'var(--brand-text-primary)' }}
                   >
-                    Código Postal *
+                    {t.deliveryPostal}
                   </label>
                   <Input
                     id="postalCode"
@@ -294,10 +296,10 @@ export function DeliveryStep({
           {/* Botones */}
           <div className="flex gap-3">
             <Button type="button" variant="outline" onClick={onBack} className="flex-1">
-              Atrás
+              {t.deliveryBack}
             </Button>
             <Button type="submit" className="flex-1">
-              Continuar
+              {t.deliveryContinue}
             </Button>
           </div>
         </form>

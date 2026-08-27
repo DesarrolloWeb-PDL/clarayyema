@@ -110,6 +110,55 @@ export interface Translations {
   whatsappFreeMessage: string;
   whatsappRespond: string;
   footerCopyright: string;
+  navOpenMenu: string;
+  navCloseMenu: string;
+  productDetailOf: string;
+  productPhotos: string;
+  productPhotoPrev: string;
+  productPhotoNext: string;
+  productLowStock: string;
+  productOutOfStock: string;
+  productAvailable: string;
+  productWeight: string;
+  productAllergens: string;
+  productPlaceholderLabel: string;
+  productPlaceholderUpdating: string;
+  productGalleryViewImage: string;
+  cartAddToCart: string;
+  cartAdded: string;
+  categoryProductCount: string;
+  checkoutErrorShipping: string;
+  checkoutErrorPayment: string;
+  checkoutErrorProcessing: string;
+  confirmLoading: string;
+  confirmNotFound: string;
+  confirmTitle: string;
+  confirmThanks: string;
+  confirmOrderNumber: string;
+  confirmPrint: string;
+  confirmSendWhatsApp: string;
+  confirmShowAtPickup: string;
+  confirmEmailNotice: string;
+  confirmPaymentPending: string;
+  confirmPaymentPendingDesc: string;
+  confirmPaymentRetry: string;
+  confirmNeedHelp: string;
+  whatsappDefaultMessage: string;
+  whatsappAriaLabel: string;
+  whatsappChatOpen: string;
+  whatsappChatClose: string;
+  whatsappFaqSourdough: string;
+  whatsappFaqSourdoughAnswer: string;
+  whatsappFaqDelivery: string;
+  whatsappFaqDeliveryAnswer: string;
+  whatsappFaqLocalDelivery: string;
+  whatsappFaqLocalDeliveryAnswer: string;
+  whatsappFaqGluten: string;
+  whatsappFaqGlutenAnswer: string;
+  whatsappFaqOrder: string;
+  whatsappFaqOrderAnswer: string;
+  whatsappFaqPickup: string;
+  whatsappFaqPickupAnswer: string;
 }
 
 const ES: Translations = {
@@ -222,6 +271,55 @@ const ES: Translations = {
   whatsappFreeMessage: "Escribir mensaje libre",
   whatsappRespond: "Respondemos al instante",
   footerCopyright: "Todos los derechos reservados.",
+  navOpenMenu: "Abrir menú",
+  navCloseMenu: "Cerrar menú",
+  productDetailOf: "Ver detalle de",
+  productPhotos: "fotos",
+  productPhotoPrev: "Ver foto anterior de",
+  productPhotoNext: "Ver foto siguiente de",
+  productLowStock: "¡Últimas unidades!",
+  productOutOfStock: "Agotado",
+  productAvailable: "disponibles",
+  productWeight: "Peso",
+  productAllergens: "Alérgenos",
+  productPlaceholderLabel: "Producto artesanal",
+  productPlaceholderUpdating: "Imagen en actualización",
+  productGalleryViewImage: "Ver imagen",
+  cartAddToCart: "Agregar al carrito",
+  cartAdded: "¡Agregado!",
+  categoryProductCount: "productos",
+  checkoutErrorShipping: "No se pudieron cargar costos de envío",
+  checkoutErrorPayment: "No se pudieron cargar medios de pago",
+  checkoutErrorProcessing: "Error al procesar el pedido",
+  confirmLoading: "Cargando información del pedido...",
+  confirmNotFound: "No se pudo encontrar el pedido",
+  confirmTitle: "¡Pedido confirmado!",
+  confirmThanks: "Gracias por tu compra",
+  confirmOrderNumber: "Número de pedido",
+  confirmPrint: "Imprimir comprobante",
+  confirmSendWhatsApp: "Enviar por WhatsApp",
+  confirmShowAtPickup: "Presentá este comprobante al retirar tu pedido",
+  confirmEmailNotice: "Si el email está bien ingresado, recibirás la confirmación en tu casilla.",
+  confirmPaymentPending: "Pago pendiente",
+  confirmPaymentPendingDesc: "El pago con Mercado Pago no se completó o fue cancelado.",
+  confirmPaymentRetry: "Podés volver a intentar el pago desde la sección de pedidos.",
+  confirmNeedHelp: "¿Necesitas ayuda?",
+  whatsappDefaultMessage: "Hola, vengo de Tiempo Masa Madre...",
+  whatsappAriaLabel: "Contactar por WhatsApp",
+  whatsappChatOpen: "Abrir chat de WhatsApp",
+  whatsappChatClose: "Cerrar chat",
+  whatsappFaqSourdough: "¿Qué es el pan de masa madre?",
+  whatsappFaqSourdoughAnswer: "El pan de masa madre es un pan fermentado naturalmente con levaduras y bacterias propias del proceso. No usamos levaduras industriales.",
+  whatsappFaqDelivery: "¿Cuándo se entregan los pedidos?",
+  whatsappFaqDeliveryAnswer: "La preventa abre los miércoles y se entrega los sábados. Coordinamos recogida en puntos o envío local.",
+  whatsappFaqLocalDelivery: "¿Hacen envíos a domicilio?",
+  whatsappFaqLocalDeliveryAnswer: "Sí, ofrecemos reparto local en Utrera el mismo día del horneado. También hay puntos de recogida.",
+  whatsappFaqGluten: "¿Tienen opciones sin gluten?",
+  whatsappFaqGlutenAnswer: "Nuestros panes contienen trigo. No contamos con opciones sin gluten actualmente.",
+  whatsappFaqOrder: "¿Cómo hago mi pedido?",
+  whatsappFaqOrderAnswer: "Entrá a nuestra tienda online, elegí los productos y completá el checkout. Aceptamos transferencia y Mercado Pago.",
+  whatsappFaqPickup: "¿Dónde retiran los pedidos?",
+  whatsappFaqPickupAnswer: "Tenemos puntos de recogida en distintas zonas de Utrera. Elegís el que más te convenga al hacer tu pedido.",
 };
 
 const PT: Translations = {
@@ -334,6 +432,55 @@ const PT: Translations = {
   whatsappFreeMessage: "Escrever mensagem livre",
   whatsappRespond: "Respondemos instantaneamente",
   footerCopyright: "Todos os direitos reservados.",
+  navOpenMenu: "Abrir menu",
+  navCloseMenu: "Fechar menu",
+  productDetailOf: "Ver detalhe de",
+  productPhotos: "fotos",
+  productPhotoPrev: "Ver foto anterior de",
+  productPhotoNext: "Ver foto seguinte de",
+  productLowStock: "Últimas unidades!",
+  productOutOfStock: "Esgotado",
+  productAvailable: "disponíveis",
+  productWeight: "Peso",
+  productAllergens: "Alérgenos",
+  productPlaceholderLabel: "Produto artesanal",
+  productPlaceholderUpdating: "Imagem em atualização",
+  productGalleryViewImage: "Ver imagem",
+  cartAddToCart: "Adicionar ao carrinho",
+  cartAdded: "Adicionado!",
+  categoryProductCount: "produtos",
+  checkoutErrorShipping: "Não foi possível carregar os custos de frete",
+  checkoutErrorPayment: "Não foi possível carregar os meios de pagamento",
+  checkoutErrorProcessing: "Erro ao processar o pedido",
+  confirmLoading: "Carregando informações do pedido...",
+  confirmNotFound: "Não foi possível encontrar o pedido",
+  confirmTitle: "Pedido confirmado!",
+  confirmThanks: "Obrigado pela sua compra",
+  confirmOrderNumber: "Número do pedido",
+  confirmPrint: "Imprimir comprovante",
+  confirmSendWhatsApp: "Enviar por WhatsApp",
+  confirmShowAtPickup: "Apresente este comprovante ao retirar seu pedido",
+  confirmEmailNotice: "Se o email estiver correto, você receberá a confirmação na sua caixa de entrada.",
+  confirmPaymentPending: "Pagamento pendente",
+  confirmPaymentPendingDesc: "O pagamento com Mercado Pago não foi completado ou foi cancelado.",
+  confirmPaymentRetry: "Você pode tentar novamente o pagamento na seção de pedidos.",
+  confirmNeedHelp: "Precisa de ajuda?",
+  whatsappDefaultMessage: "Olá, vim do Tempo Masa Madre...",
+  whatsappAriaLabel: "Contatar por WhatsApp",
+  whatsappChatOpen: "Abrir chat do WhatsApp",
+  whatsappChatClose: "Fechar chat",
+  whatsappFaqSourdough: "O que é pão de massa madre?",
+  whatsappFaqSourdoughAnswer: "O pão de massa madre é um pão fermentado naturalmente com leveduras e bactérias próprias do processo. Não usamos leveduras industriais.",
+  whatsappFaqDelivery: "Quando são entregues os pedidos?",
+  whatsappFaqDeliveryAnswer: "A pré-venda abre às quartas e é entregue aos sábados. Coordenamos retirada nos pontos ou entrega local.",
+  whatsappFaqLocalDelivery: "Fazem entregas a domicílio?",
+  whatsappFaqLocalDeliveryAnswer: "Sim, oferecemos entrega local em Utrera no mesmo dia do forno. Também temos pontos de retirada.",
+  whatsappFaqGluten: "Têm opções sem glúten?",
+  whatsappFaqGlutenAnswer: "Nossos pães contêm trigo. Não temos opções sem glúten no momento.",
+  whatsappFaqOrder: "Como faço meu pedido?",
+  whatsappFaqOrderAnswer: "Acesse nossa loja online, escolha os produtos e finalize o checkout. Aceitamos transferência e Mercado Pago.",
+  whatsappFaqPickup: "Onde retiram os pedidos?",
+  whatsappFaqPickupAnswer: "Temos pontos de retirada em diferentes zonas de Utrera. Você escolhe o mais conveniente ao fazer seu pedido.",
 };
 
 const EN: Translations = {
@@ -446,6 +593,55 @@ const EN: Translations = {
   whatsappFreeMessage: "Write free message",
   whatsappRespond: "We respond instantly",
   footerCopyright: "All rights reserved.",
+  navOpenMenu: "Open menu",
+  navCloseMenu: "Close menu",
+  productDetailOf: "View details of",
+  productPhotos: "photos",
+  productPhotoPrev: "View previous photo of",
+  productPhotoNext: "View next photo of",
+  productLowStock: "Low stock!",
+  productOutOfStock: "Out of stock",
+  productAvailable: "available",
+  productWeight: "Weight",
+  productAllergens: "Allergens",
+  productPlaceholderLabel: "Artisanal product",
+  productPlaceholderUpdating: "Image being updated",
+  productGalleryViewImage: "View image",
+  cartAddToCart: "Add to cart",
+  cartAdded: "Added!",
+  categoryProductCount: "products",
+  checkoutErrorShipping: "Could not load shipping costs",
+  checkoutErrorPayment: "Could not load payment methods",
+  checkoutErrorProcessing: "Error processing order",
+  confirmLoading: "Loading order information...",
+  confirmNotFound: "Order not found",
+  confirmTitle: "Order confirmed!",
+  confirmThanks: "Thank you for your purchase",
+  confirmOrderNumber: "Order number",
+  confirmPrint: "Print receipt",
+  confirmSendWhatsApp: "Send via WhatsApp",
+  confirmShowAtPickup: "Show this receipt when collecting your order",
+  confirmEmailNotice: "If the email is correct, you'll receive the confirmation in your inbox.",
+  confirmPaymentPending: "Payment pending",
+  confirmPaymentPendingDesc: "The Mercado Pago payment was not completed or was cancelled.",
+  confirmPaymentRetry: "You can retry the payment from the orders section.",
+  confirmNeedHelp: "Need help?",
+  whatsappDefaultMessage: "Hi, I came from Tiempo Masa Madre...",
+  whatsappAriaLabel: "Contact via WhatsApp",
+  whatsappChatOpen: "Open WhatsApp chat",
+  whatsappChatClose: "Close chat",
+  whatsappFaqSourdough: "What is sourdough bread?",
+  whatsappFaqSourdoughAnswer: "Sourdough bread is naturally fermented with wild yeasts and bacteria from the process. We don't use industrial yeast.",
+  whatsappFaqDelivery: "When are orders delivered?",
+  whatsappFaqDeliveryAnswer: "Pre-sale opens on Wednesdays and delivery is on Saturdays. We coordinate pickup points or local delivery.",
+  whatsappFaqLocalDelivery: "Do you do home delivery?",
+  whatsappFaqLocalDeliveryAnswer: "Yes, we offer local delivery in Utrera on the same bake day. We also have pickup points.",
+  whatsappFaqGluten: "Do you have gluten-free options?",
+  whatsappFaqGlutenAnswer: "Our breads contain wheat. We don't have gluten-free options at the moment.",
+  whatsappFaqOrder: "How do I place an order?",
+  whatsappFaqOrderAnswer: "Visit our online store, choose your products and complete checkout. We accept bank transfer and Mercado Pago.",
+  whatsappFaqPickup: "Where do you pick up orders?",
+  whatsappFaqPickupAnswer: "We have pickup points in different areas of Utrera. You choose the most convenient one when placing your order.",
 };
 
 const translations: Record<Lang, Translations> = { es: ES, pt: PT, en: EN };

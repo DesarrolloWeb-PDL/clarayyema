@@ -138,7 +138,7 @@ export function Header({ siteContent, showCart = true }: HeaderProps) {
               size="icon"
               className="md:hidden"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
-              aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+              aria-label={mobileMenuOpen ? t.navCloseMenu : t.navOpenMenu}
               style={{ color: theme.primaryColor }}
             >
               <Menu className="h-5 w-5" />

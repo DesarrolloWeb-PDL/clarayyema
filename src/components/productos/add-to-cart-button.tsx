@@ -5,6 +5,7 @@ import { ShoppingCart, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCartStore } from '@/stores/cart-store';
 import { cn } from '@/lib/utils';
+import { useLanguage } from '@/components/language-provider';
 
 interface AddToCartButtonProps {
   productId: string;
@@ -34,6 +35,7 @@ export function AddToCartButton({
   const [isAdded, setIsAdded] = React.useState(false);
   const addItem = useCartStore((state) => state.addItem);
   const openCart = useCartStore((state) => state.openCart);
+  const { t } = useLanguage();
 
   const handleClick = () => {
     addItem({
@@ -64,12 +66,12 @@ export function AddToCartButton({
       {isAdded ? (
         <>
           <Check className="mr-2 h-4 w-4" />
-          ¡Agregado!
+          {t.cartAdded}
         </>
       ) : (
         <>
           <ShoppingCart className="mr-2 h-4 w-4" />
-          Agregar al carrito
+          {t.cartAddToCart}
         </>
       )}
     </Button>

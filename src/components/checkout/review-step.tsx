@@ -11,6 +11,7 @@ import { DeliveryMethod, PaymentProvider, type PaymentMethodOption, type Shippin
 import type { CartItem } from '@/types/cart';
 import { normalizePublicAssetUrl } from '@/lib/url-normalizer';
 import { formatCurrency } from '@/lib/format';
+import { useLanguage } from '@/components/language-provider';
 
 interface ReviewStepProps {
   items: CartItem[];
@@ -62,29 +63,30 @@ export function ReviewStep({
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shippingCost = shippingCosts[deliveryData.method];
   const total = subtotal + shippingCost;
+  const { t } = useLanguage();
 
   const selectedPickupPoint = deliveryData.pickupLocationId
     ? pickupPoints.find((p) => p.id === deliveryData.pickupLocationId)
     : null;
 
   const deliveryMethodNames = {
-    PICKUP_POINT: 'Recogida en punto',
-    LOCAL_DELIVERY: 'Envío local',
-    NATIONAL_COURIER: 'Mensajería nacional',
+    PICKUP_POINT: t.deliveryMethodNamePickup,
+    LOCAL_DELIVERY: t.deliveryMethodNameLocal,
+    NATIONAL_COURIER: t.deliveryMethodNameCourier,
   };
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Revisa tu pedido</CardTitle>
+        <CardTitle>{t.reviewTitle}</CardTitle>
         <CardDescription>
-          Verifica que todo es correcto antes de proceder al pago
+          {t.reviewDesc}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Productos */}
         <div>
-          <h3 className="font-semibold mb-3" style={{ color: 'var(--brand-text-primary)' }}>Productos ({items.length})</h3>
+          <h3 className="font-semibold mb-3" style={{ color: 'var(--brand-text-primary)' }}>{t.reviewProducts} ({items.length})</h3>
           <div className="space-y-3">
             {items.map((item) => (
               <div key={item.productId} className="flex gap-3 p-3 rounded-lg" style={{ backgroundColor: 'var(--brand-muted-bg)' }}>
@@ -107,7 +109,7 @@ export function ReviewStep({
                     </Badge>
                     {item.sliced && (
                       <Badge variant="outline" className="text-xs">
-                        Rebanado
+                        {t.cartSliced}
                       </Badge>
                     )}
                   </div>
@@ -124,23 +126,23 @@ export function ReviewStep({
 
         {/* Información del cliente */}
         <div>
-          <h3 className="font-semibold mb-3" style={{ color: 'var(--brand-text-primary)' }}>Información de contacto</h3>
+          <h3 className="font-semibold mb-3" style={{ color: 'var(--brand-text-primary)' }}>{t.reviewContactInfo}</h3>
           <div className="rounded-lg p-4 space-y-1" style={{ backgroundColor: 'var(--brand-muted-bg)' }}>
             <p className="text-sm">
-              <span className="font-medium">Nombre:</span> {customerData.name}
+              <span className="font-medium">{t.reviewName}</span> {customerData.name}
             </p>
             <p className="text-sm">
-              <span className="font-medium">Email:</span> {customerData.email}
+              <span className="font-medium">{t.reviewEmail}</span> {customerData.email}
             </p>
             <p className="text-sm">
-              <span className="font-medium">Teléfono:</span> {customerData.phone}
+              <span className="font-medium">{t.reviewPhone}</span> {customerData.phone}
             </p>
           </div>
         </div>
 
         {/* Método de entrega */}
         <div>
-          <h3 className="font-semibold mb-3" style={{ color: 'var(--brand-text-primary)' }}>Método de entrega</h3>
+          <h3 className="font-semibold mb-3" style={{ color: 'var(--brand-text-primary)' }}>{t.reviewDeliveryMethod}</h3>
           <div className="rounded-lg p-4" style={{ backgroundColor: 'var(--brand-muted-bg)' }}>
             <p className="font-medium text-sm mb-2">
               {deliveryMethodNames[deliveryData.method]}
@@ -167,7 +169,7 @@ export function ReviewStep({
         </div>
 
         <div>
-          <h3 className="font-semibold mb-3" style={{ color: 'var(--brand-text-primary)' }}>Pago</h3>
+          <h3 className="font-semibold mb-3" style={{ color: 'var(--brand-text-primary)' }}>{t.reviewPayment}</h3>
           <div className="grid gap-3 sm:grid-cols-2">
             {paymentOptions.map((option) => {
               const selected = option.value === selectedPaymentProvider;
@@ -205,18 +207,18 @@ export function ReviewStep({
             className="block text-sm font-medium mb-2"
             style={{ color: 'var(--brand-text-primary)' }}
           >
-            Notas adicionales (opcional)
+            {t.reviewNotes}
           </label>
           <Textarea
             id="notes"
             value={customerNotes}
             onChange={(e) => onNotesChange(e.target.value)}
-            placeholder="¿Alguna petición especial? Déjanos tus comentarios aquí..."
+            placeholder={t.reviewNotesPlaceholder}
             rows={3}
             maxLength={500}
           />
           <p className="text-xs mt-1" style={{ color: 'var(--brand-text-muted)' }}>
-            {customerNotes.length}/500 caracteres
+            {customerNotes.length}{t.reviewChars}
           </p>
         </div>
 
@@ -224,17 +226,17 @@ export function ReviewStep({
         <div className="border-t pt-4" style={{ borderColor: 'var(--brand-border)' }}>
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span style={{ color: 'var(--brand-text-muted)' }}>Subtotal</span>
+              <span style={{ color: 'var(--brand-text-muted)' }}>{t.checkoutSubtotal}</span>
               <span className="font-medium">{formatCurrency(subtotal)}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span style={{ color: 'var(--brand-text-muted)' }}>Gastos de envío</span>
+              <span style={{ color: 'var(--brand-text-muted)' }}>{t.reviewShippingCost}</span>
               <span className="font-medium">
-                {shippingCost === 0 ? 'Gratis' : formatCurrency(shippingCost)}
+                {shippingCost === 0 ? t.checkoutFree : formatCurrency(shippingCost)}
               </span>
             </div>
             <div className="flex justify-between text-lg font-bold border-t pt-2" style={{ borderColor: 'var(--brand-border)' }}>
-              <span>Total</span>
+              <span>{t.checkoutTotal}</span>
               <span className="text-brand-gold-dark">{formatCurrency(total)}</span>
             </div>
           </div>
@@ -249,7 +251,7 @@ export function ReviewStep({
             disabled={isSubmitting}
             className="flex-1"
           >
-            Atrás
+            {t.reviewBack}
           </Button>
           <Button
             onClick={onSubmit}
@@ -260,10 +262,10 @@ export function ReviewStep({
             {isSubmitting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Procesando...
+                {t.reviewProcessing}
               </>
             ) : (
-              'Proceder al pago'
+              t.reviewPay
             )}
           </Button>
         </div>

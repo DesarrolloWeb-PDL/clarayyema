@@ -8,6 +8,7 @@ import { X, Plus, Minus, Trash2, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCartStore } from '@/stores/cart-store';
+import { useLanguage } from '@/components/language-provider';
 import { normalizePublicAssetUrl } from '@/lib/url-normalizer';
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@/lib/format';
@@ -26,6 +27,7 @@ interface CartItemProps {
 }
 
 const CartItem = React.memo(function CartItem({ item, closeCart, updateQuantity, updateSliced, removeItem }: CartItemProps) {
+  const { t } = useLanguage();
   return (
     <div
       className="flex gap-4 p-3 rounded-lg"
@@ -74,7 +76,7 @@ const CartItem = React.memo(function CartItem({ item, closeCart, updateQuantity,
             className="text-xs cursor-pointer"
             style={{ color: 'var(--brand-text-muted)' }}
           >
-            Rebanado
+            {t.cartSliced}
           </label>
         </div>
 
@@ -125,7 +127,7 @@ const CartItem = React.memo(function CartItem({ item, closeCart, updateQuantity,
         {/* Stock Warning */}
         {item.quantity >= item.maxStock && (
           <Badge variant="warning" className="mt-2 text-xs">
-            Stock máximo alcanzado
+            {t.cartMaxStock}
           </Badge>
         )}
       </div>
@@ -144,6 +146,7 @@ export function CartSidebar() {
     updateSliced,
     getSubtotal,
   } = useCartStore();
+  const { t } = useLanguage();
   const [isHydrated, setIsHydrated] = React.useState(false);
 
   React.useEffect(() => {
@@ -182,7 +185,7 @@ export function CartSidebar() {
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b" style={{ borderColor: 'var(--brand-border)' }}>
           <h2 className="text-lg font-semibold" style={{ color: 'var(--brand-text-primary)' }}>
-            Tu Carrito
+            {t.cartTitle}
           </h2>
           <Button
             variant="ghost"
@@ -199,13 +202,13 @@ export function CartSidebar() {
           <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
             <ShoppingBag className="h-16 w-16 mb-4" style={{ color: 'var(--brand-text-muted)' }} />
             <h3 className="text-lg font-medium mb-2" style={{ color: 'var(--brand-text-primary)' }}>
-              Tu carrito está vacío
+              {t.cartEmpty}
             </h3>
             <p className="text-sm mb-6" style={{ color: 'var(--brand-text-muted)' }}>
-              ¡Agrega algunos productos para empezar!
+              {t.cartEmptyHint}
             </p>
             <Button onClick={closeCart}>
-              Ir a comprar
+              {t.cartGoShopping}
             </Button>
           </div>
         ) : (
@@ -229,7 +232,7 @@ export function CartSidebar() {
               {/* Subtotal */}
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium" style={{ color: 'var(--brand-text-primary)' }}>
-                  Subtotal
+                  {t.cartSubtotal}
                 </span>
                 <span className="text-xl font-bold text-brand-gold-dark">
                   {formatCurrency(subtotal)}
@@ -237,13 +240,13 @@ export function CartSidebar() {
               </div>
 
               <p className="text-xs" style={{ color: 'var(--brand-text-muted)' }}>
-                Los gastos de envío se calcularán en el checkout
+                {t.cartShippingNote}
               </p>
 
               {/* Checkout Button */}
               <Link href="/checkout" onClick={closeCart}>
                 <Button className="w-full" size="lg">
-                  Proceder al Checkout
+                  {t.cartCheckout}
                 </Button>
               </Link>
 
@@ -252,7 +255,7 @@ export function CartSidebar() {
                 className="w-full"
                 onClick={closeCart}
               >
-                Seguir comprando
+                {t.cartContinue}
               </Button>
             </div>
           </>
