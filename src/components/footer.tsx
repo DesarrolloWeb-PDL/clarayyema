@@ -120,13 +120,40 @@ export default function Footer({ siteContent }: FooterProps) {
           )}
         </div>
 
-        <div 
+        <div
           className="mt-6 pt-6 border-t"
           style={{ borderColor: theme.primaryColor + '30' }}
         >
-          <p className="text-center text-sm" style={{ color: 'var(--brand-text-muted)' }}>
-            © {year || '2026'} {theme.appTitle}. {siteContent.footerLegalNote}
-          </p>
+          <div className="flex flex-col items-center justify-center gap-3">
+            <p className="text-center text-sm" style={{ color: 'var(--brand-text-muted)' }}>
+              © {year || '2026'} {theme.appTitle}. Todos os direitos reservados.
+            </p>
+            <a
+              href="https://desarrolloweb-pdl.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-brand flex items-center gap-2 text-xs transition-colors hover:text-[var(--brand-gold,#d4a574)]"
+              style={{ color: 'var(--brand-text-muted)' }}
+            >
+              <span
+                className="inline-flex w-4 h-4 shrink-0 transition-transform hover:scale-105"
+                aria-hidden="true"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 32 32"
+                  fill="currentColor"
+                  className="w-full h-full"
+                >
+                  <rect x="4" y="4" width="11" height="11" rx="2" opacity="1" />
+                  <rect x="17" y="4" width="11" height="11" rx="2" opacity="0.7" />
+                  <rect x="4" y="17" width="11" height="11" rx="2" opacity="0.5" />
+                  <rect x="17" y="17" width="11" height="11" rx="2" opacity="0.3" />
+                </svg>
+              </span>
+              DesarrolloWeb-pdl
+            </a>
+          </div>
         </div>
       </div>
     </footer>
