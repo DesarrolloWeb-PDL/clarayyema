@@ -4,6 +4,7 @@ import { Header } from "@/components/header";
 import Footer from "@/components/footer";
 import { CartSidebar } from "@/components/cart-sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
+import { LanguageProvider } from "@/components/language-provider";
 import WhatsAppBot from "@/components/whatsapp-bot";
 import { getSiteContent } from "@/lib/site-content";
 import { Toaster } from "@/components/toaster";
@@ -48,18 +49,20 @@ export default async function RootLayout({
         <meta name="format-detection" content="telephone=no" />
       </head>
       <body>
-        <ThemeProvider>
-          <div className="flex flex-col min-h-screen">
-            <Header siteContent={siteContent} showCart={true} />
-            <main className="flex-1">
-              {children}
-            </main>
-            <Footer siteContent={siteContent} />
-            <CartSidebar />
-            <WhatsAppBot siteContent={siteContent} />
-            <Toaster />
-          </div>
-        </ThemeProvider>
+        <LanguageProvider>
+          <ThemeProvider>
+            <div className="flex flex-col min-h-screen">
+              <Header siteContent={siteContent} showCart={true} />
+              <main className="flex-1">
+                {children}
+              </main>
+              <Footer siteContent={siteContent} />
+              <CartSidebar />
+              <WhatsAppBot siteContent={siteContent} />
+              <Toaster />
+            </div>
+          </ThemeProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

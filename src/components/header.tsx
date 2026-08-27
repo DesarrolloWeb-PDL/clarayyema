@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCartStore } from '@/stores/cart-store';
 import { useTheme } from '@/components/theme-provider';
+import { useLanguage } from '@/components/language-provider';
+import { LanguageSwitcher } from '@/components/language-switcher';
 import { normalizePublicAssetUrl } from '@/lib/url-normalizer';
 import type { SiteContent } from '@/lib/site-content.shared';
 
@@ -22,6 +24,7 @@ export function Header({ siteContent, showCart = true }: HeaderProps) {
   const totalItems = useCartStore((state) => state.getTotalItems());
   const toggleCart = useCartStore((state) => state.toggleCart);
   const theme = useTheme();
+  const { t } = useLanguage();
   const logoSrc = normalizePublicAssetUrl(theme.logoUrl) || '/img/espiga.png';
   const logoIsExternal = /^https?:\/\//i.test(logoSrc);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
@@ -89,25 +92,26 @@ export function Header({ siteContent, showCart = true }: HeaderProps) {
               className="text-sm font-medium transition-colors hover:opacity-75"
               style={{ color: theme.primaryColor }}
             >
-              {siteContent.navProductsLabel}
+              {t.navProductsLabel}
             </Link>
             <Link
               href="/sobre-nosotros"
               className="text-sm font-medium transition-colors hover:opacity-75"
               style={{ color: theme.primaryColor }}
             >
-              {siteContent.navAboutLabel}
+              {t.navAboutLabel}
             </Link>
             <Link
               href="/contacto"
               className="text-sm font-medium transition-colors hover:opacity-75"
               style={{ color: theme.primaryColor }}
             >
-              {siteContent.navContactLabel}
+              {t.navContactLabel}
             </Link>
           </nav>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
+            <LanguageSwitcher />
             {showCart && (
               <Button
                 variant="outline"
@@ -154,7 +158,7 @@ export function Header({ siteContent, showCart = true }: HeaderProps) {
             style={{ color: theme.primaryColor }}
             onClick={() => setMobileMenuOpen(false)}
           >
-            {siteContent.navProductsLabel}
+            {t.navProductsLabel}
           </Link>
           <Link
             href="/sobre-nosotros"
@@ -162,7 +166,7 @@ export function Header({ siteContent, showCart = true }: HeaderProps) {
             style={{ color: theme.primaryColor }}
             onClick={() => setMobileMenuOpen(false)}
           >
-            {siteContent.navAboutLabel}
+            {t.navAboutLabel}
           </Link>
           <Link
             href="/contacto"
@@ -170,7 +174,7 @@ export function Header({ siteContent, showCart = true }: HeaderProps) {
             style={{ color: theme.primaryColor }}
             onClick={() => setMobileMenuOpen(false)}
           >
-            {siteContent.navContactLabel}
+            {t.navContactLabel}
           </Link>
         </nav>
       </div>

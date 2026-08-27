@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useTheme } from '@/components/theme-provider'
+import { useLanguage } from '@/components/language-provider'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { Instagram, MessageCircle } from 'lucide-react'
@@ -16,6 +17,7 @@ export default function Footer({ siteContent }: FooterProps) {
   const [year, setYear] = useState('')
   const pathname = usePathname()
   const theme = useTheme()
+  const { t } = useLanguage()
   const logoSrc = normalizePublicAssetUrl(theme.logoUrl) || '/img/espiga.png'
   const logoIsExternal = /^https?:\/\//i.test(logoSrc)
 
@@ -126,7 +128,7 @@ export default function Footer({ siteContent }: FooterProps) {
         >
           <div className="flex flex-col items-center justify-center gap-3">
             <p className="text-center text-sm" style={{ color: 'var(--brand-text-muted)' }}>
-              © {year || '2026'} {theme.appTitle}. Todos os direitos reservados.
+              © {year || '2026'} {theme.appTitle}. {t.footerCopyright}
             </p>
             <a
               href="https://desarrolloweb-pdl.vercel.app"
