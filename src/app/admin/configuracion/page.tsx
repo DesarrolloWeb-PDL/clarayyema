@@ -791,8 +791,8 @@ export default function AdminConfigPage() {
   const [uploadingHeroImage, setUploadingHeroImage] = useState(false)
   const [themeMsg, setThemeMsg] = useState<string | null>(null)
   const [theme, setTheme] = useState({
-    appTitle: 'Tiempo Masa Madre',
-    appSubtitle: 'Micropanadería artesanal por encargo semanal',
+    appTitle: 'Clara y Yema',
+    appSubtitle: 'Productos frescos de huerta directo al consumidor',
     logoUrl: '/img/espiga.png',
     primaryColor: '#D4A95A',
     primaryHover: '#C49A4A',
@@ -816,15 +816,15 @@ export default function AdminConfigPage() {
     warningColor: '#f59e0b',
     errorColor: '#ef4444',
     headerMaxWidth: '1280px',
-    heroTitle: 'Pan Artesanal de Masa Madre',
-    heroSubtitle: 'Horneado fresco cada semana con ingredientes naturales y tiempo de fermentación tradicional.',
+    heroTitle: 'Productos Frescos de Huerta',
+    heroSubtitle: 'Huevos caseros, verduras, frutas y más. Directo del campo a tu mesa.',
     heroImageUrl: '/img/hero-bg.png',
-    infoTitle1: 'Preventa Semanal',
+    infoTitle1: 'Compra Semanal',
     infoSubtitle1: 'Pedidos de miércoles a domingo. Entrega en fin de semana.',
-    infoTitle2: 'Masa Madre Natural',
-    infoSubtitle2: 'Sin levadura industrial. Fermentación lenta y natural.',
-    infoTitle3: 'Retirada Local',
-    infoSubtitle3: 'Puntos de retirada en Utrera o envío a domicilio.',
+    infoTitle2: 'Directo del Campo',
+    infoSubtitle2: 'Productos frescos sin intermediarios. Calidad garantizada.',
+    infoTitle3: 'Reparto a Domicilio',
+    infoSubtitle3: 'Retirá en punto de recogida o recibe en tu casa.',
   })
   const [loadingPayments, setLoadingPayments] = useState(true)
   const [paymentSettings, setPaymentSettings] = useState<{
@@ -1331,7 +1331,7 @@ export default function AdminConfigPage() {
               disabled={loadingTheme || savingTheme}
               onChange={(e) => setTheme({ ...theme, appTitle: e.target.value })}
               className="w-full px-3 py-2 rounded-lg border border-gray-700 text-sm"
-              placeholder="Ej: Tiempo Masa Madre"
+              placeholder="Ej: Clara y Yema"
             />
           </div>
 
@@ -1344,7 +1344,7 @@ export default function AdminConfigPage() {
               disabled={loadingTheme || savingTheme}
               onChange={(e) => setTheme({ ...theme, appSubtitle: e.target.value })}
               className="w-full px-3 py-2 rounded-lg border border-gray-700 text-sm"
-              placeholder="Ej: Micropanadería artesanal por encargo semanal"
+              placeholder="Ej: Productos frescos de huerta directo al consumidor"
             />
           </div>
 
@@ -1543,7 +1543,7 @@ export default function AdminConfigPage() {
               <span>Vista previa:</span>
               <div style={{ textAlign: theme.titleAlign as any }}>
                 <span style={{ fontFamily: theme.fontHeading, fontSize: theme.fontSizeTitle }} className="font-bold text-white truncate block">
-                  {theme.appTitle || 'Tiempo Masa Madre'}
+                  {theme.appTitle || 'Clara y Yema'}
                 </span>
                 {theme.appSubtitle && (
                   <span style={{ fontFamily: theme.fontBody }} className="text-[10px] text-gray-400 truncate block">
@@ -1566,7 +1566,7 @@ export default function AdminConfigPage() {
                   disabled={loadingTheme || savingTheme}
                   onChange={(e) => setTheme({ ...theme, heroTitle: e.target.value })}
                   className="w-full px-3 py-2 rounded-lg border border-gray-700 text-sm bg-gray-900 text-white"
-                  placeholder="Pan Artesanal de Masa Madre"
+                  placeholder="Productos Frescos de Huerta"
                 />
               </div>
               <div>

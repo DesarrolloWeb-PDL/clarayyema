@@ -30,7 +30,7 @@ async function createRatelimit(windowMs: number, limit: number) {
   return null
 }
 
-const fallback = createFallbackConsume('__tiempoBakeryRateLimitStore')
+const fallback = createFallbackConsume('__claraYemaRateLimitStore')
 
 export async function consumeRateLimit(options: RateLimitOptions): Promise<RateLimitResult> {
   const ratelimit = await createRatelimit(options.windowMs, options.limit)

@@ -28,31 +28,31 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
   navAboutLabel: 'Sobre Nosotros',
   navContactLabel: 'Contacto',
   footerDescription:
-    'Micropanadería artesanal por encargo semanal. Horneamos en tandas pequeñas para priorizar fermentación, sabor y producto real.',
+    'Productos frescos de huerta directo al consumidor. Huevos caseros, verduras, frutas y más. Calidad sin intermediarios.',
   footerScheduleTitle: 'Horario de Pedidos',
   footerScheduleText: 'La carta abre los miércoles a las 18:00 y cierra el domingo a las 20:00.',
-  footerDeliveryText: 'Recogida en punto, reparto local y mensajería urgente el día del horneado.',
+  footerDeliveryText: 'Recogida en punto, reparto local y envío a domicilio el día de reparto.',
   footerContactTitle: 'Contacto',
-  footerLegalNote: 'Obrador artesanal. Producción limitada y trabajo bajo pedido para priorizar calidad sobre cantidad.',
-  contactEmail: 'contacto@tiempobakery.com',
+  footerLegalNote: 'Venta directa de productos de huerta. Producción limitada y trabajo bajo pedido para priorizar frescura y calidad.',
+  contactEmail: 'contacto@clarayyema.com',
   contactPhone: '+34 600 000 000',
   contactWhatsapp: '+34 600 000 000',
-  contactInstagram: 'https://www.instagram.com/tiempo.masamadre',
-  contactAddress: 'Obrador: Calle Ejemplo 123, Utrera',
+  contactInstagram: 'https://www.instagram.com/clara.y.yema',
+  contactAddress: 'Huerta: Calle Ejemplo 123, Utrera',
   aboutTitle: 'Sobre Nosotros',
   aboutBody:
-    'Somos una micropanadería artesanal y trabajamos bajo pedido. Fermentamos con tiempo, horneamos en tandas pequeñas y priorizamos calidad antes que cantidad. Cada semana abrimos una ventana breve de preventa para producir solo lo necesario y entregar pan fresco, real y sin apuro.',
+    'Somos un proyecto de venta directa de productos de huerta. Trabajamos bajo pedido para ofrecerte lo más fresco posible. Cada semana abrimos una ventana de preventa y entregamos los productos directamente del campo a tu mesa.',
   aboutSecondaryBody:
-    'Nuestra producción es limitada por diseño. Eso nos permite cuidar masas, tiempos y hornadas, asumir variaciones naturales del pan real y sostener una relación más directa con cada pedido y cada punto de entrega.',
+    'Nuestra producción es limitada por diseño. Eso nos permite elegir los mejores productos, mantener la frescura y sostener una relación más directa con cada pedido y cada punto de entrega.',
   contactTitle: 'Contacto',
   contactIntro:
-    'Escribinos para encargos, dudas sobre recogida, reparto o mensajería. Si necesitás seguimiento de tu pedido, te respondemos por email o WhatsApp.',
+    'Escribinos para encargos, dudas sobre recogida, reparto o envío. Si necesitás seguimiento de tu pedido, te respondemos por email o WhatsApp.',
   deliveryPickupText:
-    'Al hacer tu pedido podés elegir el punto de recogida que más te convenga. Horneamos nosotros, vos decidís dónde retirar.',
+    'Al hacer tu pedido podés elegir el punto de recogida que más te convenga. Nosotros elegimos los productos, vos decidís dónde retirar.',
   deliveryLocalText:
-    'El reparto local se ofrece únicamente dentro del casco urbano y se coordina el mismo día del horneado.',
+    'El reparto local se ofrece dentro del casco urbano y se coordina el día de reparto programado.',
   deliveryCourierText:
-    'También podés optar por mensajería urgente. El pedido sale el mismo día del horneado programado.',
+    'También podés optar por envío a domicilio. El pedido sale el día de reparto programado.',
 }
 
 export const SITE_CONTENT_KEYS = Object.keys(DEFAULT_SITE_CONTENT) as Array<keyof SiteContent>

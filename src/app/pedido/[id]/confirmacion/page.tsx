@@ -163,7 +163,7 @@ export default function OrderConfirmationPage() {
       .join('\n');
     const date = new Intl.DateTimeFormat('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date(order.createdAt));
     const message = [
-      '🧾 Comprobante Tiempo Masa Madre',
+      '🧾 Comprobante Clara y Yema',
       '',
       `Pedido: #${order.orderNumber}`,
       `Fecha: ${date}`,
@@ -240,8 +240,8 @@ export default function OrderConfirmationPage() {
         {/* Printable Ticket */}
         <div className="print-ticket bg-white border-2 border-gray-300 rounded-lg p-6 mb-6 max-w-sm mx-auto">
           <div className="text-center border-b-2 border-dashed pb-3 mb-3">
-            <p className="text-lg font-bold">Tiempo Masa Madre</p>
-            <p className="text-xs text-gray-600">Micropanadería artesanal</p>
+            <p className="text-lg font-bold">Clara y Yema</p>
+            <p className="text-xs text-gray-600">Productos de huerta frescos</p>
           </div>
           <div className="text-center mb-3">
             <p className="text-[10px] text-gray-500">{order.orderNumber}</p>
@@ -492,7 +492,7 @@ export default function OrderConfirmationPage() {
                   <p className="text-xs text-brand-gold-dark">
                     <strong>📞 {t.confirmNeedHelp}</strong>
                     <br />
-                    Contáctanos en contacto@tiempobakery.com
+                    Contáctanos en contacto@clarayyema.com
                   </p>
                 </div>
               </CardContent>

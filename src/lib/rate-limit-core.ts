@@ -14,7 +14,7 @@ export type RateLimitResult = {
 }
 
 export function createFallbackConsume(
-  globalKey: '__tiempoBakeryRateLimitStore' | '__tbkRlStore'
+  globalKey: '__claraYemaRateLimitStore' | '__cymRlStore'
 ) {
   function getStore() {
     if (!(globalThis as any)[globalKey]) {

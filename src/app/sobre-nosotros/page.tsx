@@ -2,7 +2,7 @@ import { getSiteContent } from '@/lib/site-content'
 import { TranslatedAbout } from '@/components/translated-about'
 
 export const metadata = {
-  title: 'Sobre Nosotros | Tiempo Masa Madre',
+  title: 'Sobre Nosotros | Clara y Yema',
 }
 
 export default async function SobreNosotrosPage() {

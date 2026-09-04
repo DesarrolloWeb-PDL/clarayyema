@@ -78,8 +78,8 @@ const themeSchema = z.object({
 type ThemeConfig = z.infer<typeof themeSchema>
 
 const DEFAULT_THEME: ThemeConfig = {
-  appTitle: 'Tiempo Masa Madre',
-  appSubtitle: 'Micropanadería artesanal por encargo semanal',
+  appTitle: 'Clara y Yema',
+  appSubtitle: 'Productos frescos de huerta directo al consumidor',
   logoUrl: '/img/espiga.png',
   heroImageUrl: '/img/hero-bg.png',
   primaryColor: '#D4A95A',
@@ -103,14 +103,14 @@ const DEFAULT_THEME: ThemeConfig = {
   successColor: '#10b981',
   warningColor: '#f59e0b',
   errorColor: '#ef4444',
-  heroTitle: 'Pan Artesanal de Masa Madre',
-  heroSubtitle: 'Horneado fresco cada semana con ingredientes naturales y tiempo de fermentación tradicional.',
-  infoTitle1: 'Preventa Semanal',
+  heroTitle: 'Productos Frescos de Huerta',
+  heroSubtitle: 'Huevos caseros, verduras, frutas y más. Directo del campo a tu mesa.',
+  infoTitle1: 'Compra Semanal',
   infoSubtitle1: 'Pedidos de miércoles a domingo. Entrega en fin de semana.',
-  infoTitle2: 'Masa Madre Natural',
-  infoSubtitle2: 'Sin levadura industrial. Fermentación lenta y natural.',
-  infoTitle3: 'Retirada Local',
-  infoSubtitle3: 'Puntos de retirada en Utrera o envío a domicilio.',
+  infoTitle2: 'Directo del Campo',
+  infoSubtitle2: 'Productos frescos sin intermediarios. Calidad garantizada.',
+  infoTitle3: 'Reparto a Domicilio',
+  infoSubtitle3: 'Retirá en punto de recogida o recibe en tu casa.',
 }
 
 const THEME_KEYS = Object.keys(DEFAULT_THEME) as (keyof ThemeConfig)[]

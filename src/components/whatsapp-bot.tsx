@@ -83,7 +83,7 @@ export default function WhatsAppBot({ siteContent }: WhatsAppBotProps) {
                 <MessageCircle className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h3 className="font-semibold text-white text-sm">Tiempo Masa Madre</h3>
+                <h3 className="font-semibold text-white text-sm">Clara y Yema</h3>
                 <p className="text-xs text-white/80">{t.whatsappRespond}</p>
               </div>
             </div>

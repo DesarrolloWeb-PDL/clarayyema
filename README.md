@@ -1,6 +1,6 @@
-# 🥖 Tiempo Bakery - E-commerce de Panadería Artesanal
+# 🥚 Clara y Yema - Productos de Huerta
 
-Sistema de e-commerce especializado para micropanadería artesanal con modelo de preventa semanal y control de stock por lotes.
+Sistema de e-commerce para venta directa de productos de huerta con modelo de compra semanal y reparto programado.
 
 ## ✅ Estado del Proyecto
 
@@ -15,9 +15,9 @@ El proyecto está **funcional** con catálogo de productos, carrito de compras, 
 - ✅ **⏰ Time-Gating**: Apertura/cierre automático de pedidos (Miércoles 18:00 - Domingo 20:00)
 - ✅ **📦 Stock Semanal**: Control de inventario por ciclo de producción
 - ✅ **🛒 Carrito Inteligente**: Persistencia en localStorage con ajuste de cantidades
-- ✅ **🚚 Múltiples Entregas**: Recogida en punto, envío local (5€) y nacional (10€)
+- ✅ **🚚 Múltiples Entregas**: Recogida en punto, reparto local y envío a domicilio
 - ✅ **💳 Pago Seguro**: Integración completa con Stripe y Mercado Pago (checkout + webhooks)
-- ✅ **🧾 Gestión de Pedidos**: Creación automática con número único (TBK-YYYY-NNNN)
+- ✅ **🧾 Gestión de Pedidos**: Creación automática con número único (CYM-YYYY-NNNN)
 - ✅ **📄 Página de Confirmación**: Resumen completo del pedido postpago
 - ✅ **📧 Emails Transaccionales**: Confirmación opcional al cliente y aviso interno con Resend
 - ✅ **👨‍💼 Panel Admin**: Login protegido, métricas, productos, stock, pedidos, configuración y uploads
@@ -48,7 +48,7 @@ El proyecto está **funcional** con catálogo de productos, carrito de compras, 
 ```bash
 # Clonar el repositorio
 git clone <tu-repo>
-cd tiempo_backery
+cd clara-yema
 
 # Instalar dependencias
 npm install
@@ -61,7 +61,7 @@ Puedes usar PostgreSQL local o un servicio en la nube:
 **Opción A: PostgreSQL Local**
 ```bash
 # Crear base de datos
-createdb tiempo_bakery
+createdb clara_yema
 ```
 
 **Opción B: Supabase (Recomendado para desarrollo)**
@@ -87,7 +87,7 @@ Configuración mínima necesaria:
 # Base de datos
 # Si usás Prisma Accelerate en producción, mantené ambas URLs también en local.
 DATABASE_URL="prisma+postgres://accelerate.prisma-data.net/?api_key=..."
-DIRECT_URL="postgres://usuario:password@host:5432/tiempo_bakery?sslmode=require"
+DIRECT_URL="postgres://usuario:password@host:5432/clara_yema?sslmode=require"
 
 # Stripe (usar claves de test)
 STRIPE_SECRET_KEY="sk_test_..."
@@ -103,8 +103,8 @@ JWT_SECRET="un_secreto_largo_y_unico"
 
 # Emails transaccionales (opcional)
 RESEND_API_KEY="re_..."
-ORDER_EMAIL_FROM="Tiempo Bakery <onboarding@resend.dev>"
-ORDER_NOTIFICATION_EMAILS="pedidos@tiempobakery.com"
+ORDER_EMAIL_FROM="Clara y Yema <onboarding@resend.dev>"
+ORDER_NOTIFICATION_EMAILS="pedidos@clarayyema.com"
 
 # URL del sitio
 NEXT_PUBLIC_URL="http://localhost:3000"
@@ -164,8 +164,6 @@ Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 6. **Verificar en Prisma Studio**: `npm run db:studio`
 7. **Si configuraste Resend**, comprobar que el webhook dispare la confirmación por email
 
-📖 **Ver guía detallada**: [INICIO_RAPIDO.md](INICIO_RAPIDO.md)
-
 ## 📚 Comandos Disponibles
 
 ```bash
@@ -188,7 +186,7 @@ npm run db:seed          # Poblar con datos de ejemplo
 ## 🗄️ Estructura del Proyecto
 
 ```
-tiempo_backery/
+clara-yema/
 ├── prisma/
 │   ├── schema.prisma          # Modelo de datos
 │   ├── seed.ts               # Datos iniciales
@@ -309,40 +307,11 @@ Editar `src/app/globals.css`:
 Este proyecto incluye documentación exhaustiva:
 
 - **[INICIO_RAPIDO.md](./INICIO_RAPIDO.md)**: Guía de inicio en 10 minutos
-  - Instalación paso a paso
-  - Configuración de Stripe, Mercado Pago y Resend
-  - Testing del flujo completo
-  - Solución de problemas comunes
-
 - **[ARQUITECTURA.md](./ARQUITECTURA.md)**: Diseño completo del sistema
-  - Modelo de datos con diagramas
-  - Flujos de trabajo detallados
-  - APIs y endpoints
-  - Decisiones técnicas
-
 - **[IMPLEMENTACION_FASE1.md](./IMPLEMENTACION_FASE1.md)**: Documentación de Fase 1
-  - Catálogo de productos
-  - Sistema de carrito
-  - APIs REST
-  - Componentes UI
-
 - **[IMPLEMENTACION_FASE2.md](./IMPLEMENTACION_FASE2.md)**: Documentación de Fase 2
-  - Checkout multi-paso
-  - Integración con Stripe
-  - Webhooks
-  - Confirmación de pedidos
-  - Testing exhaustivo
-
 - **[VERCEL_DEPLOY.md](./VERCEL_DEPLOY.md)**: Guía de despliegue en Vercel
-  - Configuración de base de datos
-  - Variables de entorno
-  - Webhooks de Stripe y Mercado Pago en producción
-  - Troubleshooting
-
 - **[COMANDOS.md](./COMANDOS.md)**: Referencia rápida de comandos
-  - Scripts de npm
-  - Comandos de Prisma
-  - Utilidades operativas y chequeos de despliegue
 
 ## 🚀 Despliegue a Producción
 
@@ -405,10 +374,8 @@ This project uses a **bilingual convention** by design:
 - **File paths & routes**: Spanish — `productos/`, `pedidos/`, `clientes/`. These match the domain language and are already wired into URLs, Prisma models, and imports. **Do not rename.**
 - **Code identifiers**: English — `CartItem`, `StockManager`, `TimeGatingService`, `checkoutSchema`. Matches developer conventions and keeps IDE autocompletion predictable.
 - **UI copy & user-facing text**: Spanish — the app serves Argentine customers, so all labels, error messages, and notifications are in Spanish.
-- **Comments**: Default to English for inline comments. Spanish comments are acceptable when they explain domain-specific business rules (e.g. time-gating, stock semantics).
+- **Comments**: Default to English for inline comments. Spanish comments are acceptable when they explain domain-specific business rules.
 - **Commit messages**: Spanish — follow [Conventional Commits](https://www.conventionalcommits.org/) in Spanish (`feat:`, `fix:`, `chore:`, etc.).
-
-**Why not rename everything?** Renaming file paths or routes would break dozens of imports, API URLs, and Prisma model references. The bilingual split is intentional: it keeps the domain model readable for stakeholders while keeping code maintainable for developers.
 
 ### Workflow
 
@@ -469,4 +436,4 @@ Para soporte o consultas: [tu-email@ejemplo.com]
 
 ---
 
-**Desarrollado con ❤️ y masa madre 🥖**
+**Desarrollado con ❤️ y productos frescos de huerta 🥚**

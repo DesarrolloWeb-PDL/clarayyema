@@ -10,14 +10,14 @@ import { getSiteContent } from "@/lib/site-content";
 import { Toaster } from "@/components/toaster";
 
 export const metadata: Metadata = {
-  title: "Tiempo Masa Madre - Panadería Artesanal",
-  description: "Micropanadería artesanal por encargo semanal. Panes y dulces elaborados en tandas pequeñas con fermentaciones lentas y producto real.",
+  title: "Clara y Yema - Productos de Huerta",
+  description: "Productos frescos de huerta directo al consumidor. Huevos caseros, verduras, frutas y más. Compra semanal con reparto a domicilio.",
   manifest: "/manifest",
   themeColor: "#d89a44",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Tiempo",
+    title: "Clara y Yema",
   },
   icons: {
     icon: [

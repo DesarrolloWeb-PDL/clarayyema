@@ -2,7 +2,7 @@ import { getSiteContent } from '@/lib/site-content'
 import { TranslatedContact } from '@/components/translated-contact'
 
 export const metadata = {
-  title: 'Contacto | Tiempo Masa Madre',
+  title: 'Contacto | Clara y Yema',
 }
 
 export default async function ContactoPage() {

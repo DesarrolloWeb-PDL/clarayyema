@@ -32,8 +32,8 @@ export type ThemeSettings = {
 }
 
 export const DEFAULT_THEME: ThemeSettings = {
-  appTitle: 'Tiempo Masa Madre',
-  appSubtitle: 'Micropanadería artesanal por encargo semanal',
+  appTitle: 'Clara y Yema',
+  appSubtitle: 'Productos frescos de huerta directo al consumidor',
   logoUrl: '/img/espiga.png',
   primaryColor: '#D4A95A',
   primaryHover: '#C49A4A',

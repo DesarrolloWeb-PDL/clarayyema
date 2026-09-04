@@ -146,7 +146,7 @@ export async function POST(request: NextRequest) {
         },
       })
 
-      const orderNumber = `TBK-${new Date().getFullYear()}-${randomOrderSuffix()}`;
+      const orderNumber = `CYM-${new Date().getFullYear()}-${randomOrderSuffix()}`;
 
       let pickupDetails = null;
       if (data.deliveryMethod === 'PICKUP_POINT' && data.pickupLocationId) {

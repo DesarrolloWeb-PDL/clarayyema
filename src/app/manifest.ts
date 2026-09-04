@@ -10,9 +10,9 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
   const timestamp = Date.now();
 
   return {
-    name: theme.appTitle || 'Tiempo Masa Madre',
-    short_name: 'Tiempo Masa Madre',
-    description: 'Micropanadería artesanal por encargo semanal. Panes y dulces elaborados en tandas pequeñas con fermentaciones lentas y producto real.',
+    name: theme.appTitle || 'Clara y Yema',
+    short_name: 'Clara y Yema',
+    description: 'Productos frescos de huerta directo al consumidor. Huevos caseros, verduras, frutas y más.',
     start_url: `/?v=${timestamp}`,
     display: 'standalone',
     background_color: theme.secondaryColor || '#2c2c2c',
