@@ -165,7 +165,7 @@ export default function CheckoutPage() {
       }
 
       if (formData.customerEmail) {
-        localStorage.setItem('tbk_checkout_email', formData.customerEmail);
+        localStorage.setItem('cym_checkout_email', formData.customerEmail);
       }
 
       const redirectUrl = result.checkoutUrl || `/pedido/${result.orderId}/confirmacion`;

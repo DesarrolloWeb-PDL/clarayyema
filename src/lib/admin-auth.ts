@@ -86,7 +86,7 @@ export async function hasAdminSession(cookies: import('@/lib/admin-auth-core').C
   const valid = await validateAdminSession(cookies)
   if (!valid) return false
 
-  const token = cookies.get('tbk_admin_auth')?.value
+  const token = cookies.get('cym_admin_auth')?.value
   if (!token) return false
 
   const payload = parseSessionPayload(token)

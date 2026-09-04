@@ -11,7 +11,7 @@ interface LanguageContextValue {
 
 const LanguageContext = React.createContext<LanguageContextValue | null>(null);
 
-const STORAGE_KEY = "tbk_lang";
+const STORAGE_KEY = "cym_lang";
 
 function getInitialLang(): Lang {
   if (typeof window === "undefined") return "es";

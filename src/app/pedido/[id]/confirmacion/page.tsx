@@ -83,7 +83,7 @@ export default function OrderConfirmationPage() {
   React.useEffect(() => {
     if (!orderId) return;
 
-    const email = localStorage.getItem('tbk_checkout_email') || '';
+    const email = localStorage.getItem('cym_checkout_email') || '';
     const emailParam = email ? `?email=${encodeURIComponent(email)}` : '';
 
     Promise.all([
