@@ -1,6 +1,6 @@
 import CategoryProductsCard from '@/components/productos/category-products-card';
 import { TranslatedHomeEmpty } from '@/components/translated-home-empty';
-import { TranslatedHomeHero } from '@/components/translated-home-hero';
+import { TranslatedHomeHero, TranslatedHomeInfo } from '@/components/translated-home-hero';
 import { prisma } from '@/lib/db';
 import { getTimeGatingRuntime } from '@/lib/time-gating';
 import { getThemeConfig } from '@/lib/app-theme';
@@ -182,6 +182,8 @@ export default async function HomePage() {
           </div>
         )}
       </section>
+
+      <TranslatedHomeInfo themeConfig={themeConfig} />
       </div>
     </div>
   );
