@@ -167,7 +167,7 @@ export default async function HomePage() {
         />
 
       {/* Products Section */}
-      <section className={`container mx-auto px-4 py-12 ${themeConfig.heroImageUrl ? 'bg-black/25' : ''}`}>
+      <section className="container mx-auto px-4 py-12" style={{ backgroundColor: 'var(--brand-section-products)' }}>
         {productsData.porCategoria.length === 0 ? (
           <TranslatedHomeEmpty isOpen={timeGatingData.isOpen} heroImageUrl={themeConfig.heroImageUrl} />
         ) : (

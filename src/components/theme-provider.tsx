@@ -29,6 +29,16 @@ export type ThemeSettings = {
   warningColor: string
   errorColor: string
   headerMaxWidth: string
+  sectionHeaderBg: string
+  sectionHeaderOpacity: string
+  sectionHeroBg: string
+  sectionHeroOpacity: string
+  sectionProductsBg: string
+  sectionProductsOpacity: string
+  sectionInfoBg: string
+  sectionInfoOpacity: string
+  sectionFooterBg: string
+  sectionFooterOpacity: string
 }
 
 export const DEFAULT_THEME: ThemeSettings = {
@@ -57,6 +67,16 @@ export const DEFAULT_THEME: ThemeSettings = {
   warningColor: '#f59e0b',
   errorColor: '#ef4444',
   headerMaxWidth: '1280px',
+  sectionHeaderBg: '#2C2C2C',
+  sectionHeaderOpacity: '85',
+  sectionHeroBg: '#000000',
+  sectionHeroOpacity: '50',
+  sectionProductsBg: '#000000',
+  sectionProductsOpacity: '25',
+  sectionInfoBg: '#000000',
+  sectionInfoOpacity: '20',
+  sectionFooterBg: '#2C2C2C',
+  sectionFooterOpacity: '85',
 }
 
 const ThemeContext = createContext<ThemeSettings>(DEFAULT_THEME)
@@ -106,6 +126,11 @@ function applyTheme(theme: ThemeSettings) {
   root.style.setProperty('--brand-font-size-title', theme.fontSizeTitle)
   root.style.setProperty('--brand-logo-size', `${theme.logoSize}px`)
   root.style.setProperty('--brand-header-max-width', theme.headerMaxWidth)
+  root.style.setProperty('--brand-section-header', `color-mix(in srgb, ${theme.sectionHeaderBg} ${theme.sectionHeaderOpacity}%, transparent)`)
+  root.style.setProperty('--brand-section-hero', `color-mix(in srgb, ${theme.sectionHeroBg} ${theme.sectionHeroOpacity}%, transparent)`)
+  root.style.setProperty('--brand-section-products', `color-mix(in srgb, ${theme.sectionProductsBg} ${theme.sectionProductsOpacity}%, transparent)`)
+  root.style.setProperty('--brand-section-info', `color-mix(in srgb, ${theme.sectionInfoBg} ${theme.sectionInfoOpacity}%, transparent)`)
+  root.style.setProperty('--brand-section-footer', `color-mix(in srgb, ${theme.sectionFooterBg} ${theme.sectionFooterOpacity}%, transparent)`)
 
   const bgHsl = hexToHsl(theme.bgBody)
   const fgHsl = hexToHsl(theme.textPrimary)

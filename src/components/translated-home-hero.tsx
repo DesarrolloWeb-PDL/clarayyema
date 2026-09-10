@@ -28,11 +28,8 @@ export function TranslatedHomeHero({ themeConfig, timeGatingData }: TranslatedHo
 
   return (
     <section
-      className={`relative border-b border-brand-gold/20 ${
-        themeConfig.heroImageUrl
-          ? 'bg-black/50'
-          : 'bg-gradient-to-r from-brand-gold/15 to-brand-gold/5'
-      }`}
+      className={`relative border-b border-brand-gold/20`}
+      style={{ backgroundColor: 'var(--brand-section-hero)' }}
     >
       <div className="container mx-auto px-4 py-10 md:py-14 relative z-10 w-full">
         <div className="max-w-3xl mx-auto text-center">
@@ -65,7 +62,7 @@ export function TranslatedHomeInfo({ themeConfig }: { themeConfig: AppTheme }) {
   const content = getTranslatedContent(lang, themeConfig);
 
   return (
-    <section className={`border-t border-brand-gold/15 ${themeConfig.heroImageUrl ? 'bg-black/45' : 'bg-black/20'}`}>
+    <section className="border-t border-brand-gold/15" style={{ backgroundColor: 'var(--brand-section-info)' }}>
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center">

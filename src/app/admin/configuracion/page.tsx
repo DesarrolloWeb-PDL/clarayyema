@@ -1983,6 +1983,43 @@ export default function AdminConfigPage() {
               </div>
             </div>
 
+            <div className="border-t border-gray-700 pt-4">
+              <p className="text-xs font-semibold text-gray-300 mb-3 uppercase tracking-wide">Fondos de secciones</p>
+              <p className="text-xs text-gray-500 mb-3">Color y transparencia de cada sección del home</p>
+              <div className="space-y-4">
+                {([
+                  { bgKey: 'sectionHeaderBg', opacityKey: 'sectionHeaderOpacity', label: 'Header' },
+                  { bgKey: 'sectionHeroBg', opacityKey: 'sectionHeroOpacity', label: 'Hero' },
+                  { bgKey: 'sectionProductsBg', opacityKey: 'sectionProductsOpacity', label: 'Productos' },
+                  { bgKey: 'sectionInfoBg', opacityKey: 'sectionInfoOpacity', label: 'Info' },
+                  { bgKey: 'sectionFooterBg', opacityKey: 'sectionFooterOpacity', label: 'Footer' },
+                ] as const).map(({ bgKey, opacityKey, label }) => (
+                  <div key={bgKey} className="flex items-center gap-3">
+                    <label className="text-xs text-gray-400 w-20 shrink-0">{label}</label>
+                    <input
+                      type="color"
+                      value={(theme as any)[bgKey]}
+                      disabled={loadingTheme || savingTheme}
+                      onChange={(e) => setTheme({ ...theme, [bgKey]: e.target.value })}
+                      className="h-8 w-12 rounded border border-gray-700 cursor-pointer shrink-0"
+                    />
+                    <div className="flex items-center gap-2 flex-1">
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={(theme as any)[opacityKey]}
+                        disabled={loadingTheme || savingTheme}
+                        onChange={(e) => setTheme({ ...theme, [opacityKey]: e.target.value })}
+                        className="flex-1 h-2 rounded-lg appearance-none cursor-pointer bg-gray-700"
+                      />
+                      <span className="text-xs text-gray-400 w-10 text-right">{(theme as any)[opacityKey]}%</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {themeMsg && (
               <div>
                 <p className={`text-sm ${typeof themeMsg === 'string' && themeMsg?.includes('correctamente') ? 'text-green-600' : 'text-red-600'}`}>
@@ -1997,7 +2034,7 @@ export default function AdminConfigPage() {
                 disabled={loadingTheme || savingTheme}
                 className="px-4 py-2 bg-brand-gold text-white text-sm font-medium rounded-lg hover:bg-brand-gold-dark disabled:opacity-50"
               >
-                {savingTheme ? 'Guardando...' : 'Guardar footer'}
+                {savingTheme ? 'Guardando...' : 'Guardar estilos'}
               </button>
               <button
                 onClick={handleResetTheme}

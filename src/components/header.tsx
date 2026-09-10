@@ -50,7 +50,7 @@ export function Header({ siteContent, showCart = true }: HeaderProps) {
     <header
       className="sticky top-0 z-50 w-full border-b transition-all duration-300 backdrop-blur-xl overflow-visible"
       style={{
-        backgroundColor: scrolled ? 'rgba(44, 44, 44, 0.85)' : 'rgba(44, 44, 44, 0.6)',
+        backgroundColor: 'var(--brand-section-header)',
         borderColor: theme.primaryColor + '30',
       }}
     >
