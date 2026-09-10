@@ -179,3 +179,14 @@ model AdminSession {
   @@index([jti])
   @@index([expiresAt])
 }
+
+model LoginAttempt {
+  id        String   @id @default(cuid())
+  ip        String   @unique
+  attempts  Int      @default(1)
+  lockedUntil DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([ip])
+}

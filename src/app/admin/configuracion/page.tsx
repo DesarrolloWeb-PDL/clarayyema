@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic"
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Clock3, Key, Layout, Loader2, LogOut, Mail, MapPin, Info, Palette, Plus, RefreshCw, RotateCcw, Save, Settings, Trash2, Truck } from 'lucide-react'
+import { Clock3, Eye, EyeOff, Key, Layout, Loader2, LogOut, Mail, MapPin, Info, Palette, Plus, RefreshCw, RotateCcw, Save, Settings, Trash2, Truck } from 'lucide-react'
 import Image from 'next/image';
 import * as Tabs from '@radix-ui/react-tabs'
 import { normalizePublicAssetUrl } from '@/lib/url-normalizer'
@@ -772,9 +772,182 @@ function DeliveryConfigAdmin({
   )
 }
 
+function SecurityConfigAdmin() {
+  const [currentPw, setCurrentPw] = useState('')
+  const [newPw, setNewPw] = useState('')
+  const [confirmPw, setConfirmPw] = useState('')
+  const [showCurrent, setShowCurrent] = useState(false)
+  const [showNew, setShowNew] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+  const [logoutAllLoading, setLogoutAllLoading] = useState(false)
+
+  const passwordValid = newPw.length >= 8 && /[A-Z]/.test(newPw) && /[a-z]/.test(newPw) && /[0-9]/.test(newPw)
+  const passwordsMatch = newPw === confirmPw && confirmPw.length > 0
+
+  const handleChangePassword = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setMessage(null)
+
+    try {
+      const res = await fetch('/api/admin/password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ currentPassword: currentPw, newPassword: newPw }),
+      })
+
+      const data = await res.json()
+
+      if (res.ok) {
+        setMessage({ type: 'success', text: data.message || 'Contraseña actualizada correctamente' })
+        setCurrentPw('')
+        setNewPw('')
+        setConfirmPw('')
+      } else {
+        setMessage({ type: 'error', text: data.error || 'Error al cambiar la contraseña' })
+      }
+    } catch {
+      setMessage({ type: 'error', text: 'Error de conexión' })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleLogoutAll = async () => {
+    setLogoutAllLoading(true)
+    try {
+      await fetch('/api/admin/login', { method: 'DELETE' })
+      window.location.href = '/admin/login'
+    } catch {
+      setLogoutAllLoading(false)
+    }
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Change Password */}
+      <div className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden">
+        <div className="flex items-center gap-2 px-5 py-4 border-b border-gray-700">
+          <Key className="w-4 h-4 text-brand-gold" />
+          <h3 className="font-semibold text-white text-sm">Cambiar contraseña</h3>
+        </div>
+        <form onSubmit={handleChangePassword} className="px-5 py-4 space-y-4">
+          <div>
+            <label className="block text-xs text-gray-400 mb-1">Contraseña actual *</label>
+            <div className="relative">
+              <input
+                type={showCurrent ? 'text' : 'password'}
+                value={currentPw}
+                onChange={(e) => setCurrentPw(e.target.value)}
+                autoComplete="current-password"
+                required
+                className="w-full px-3 py-2 pr-10 rounded-lg border border-gray-700 text-sm bg-gray-900 text-white"
+                placeholder="••••••••"
+              />
+              <button type="button" onClick={() => setShowCurrent(!showCurrent)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-300">
+                {showCurrent ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs text-gray-400 mb-1">Nueva contraseña *</label>
+            <div className="relative">
+              <input
+                type={showNew ? 'text' : 'password'}
+                value={newPw}
+                onChange={(e) => setNewPw(e.target.value)}
+                autoComplete="new-password"
+                required
+                className="w-full px-3 py-2 pr-10 rounded-lg border border-gray-700 text-sm bg-gray-900 text-white"
+                placeholder="••••••••"
+              />
+              <button type="button" onClick={() => setShowNew(!showNew)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-300">
+                {showNew ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+            {newPw && (
+              <div className="mt-2 space-y-1">
+                <div className="flex items-center gap-2 text-xs">
+                  <div className={`w-2 h-2 rounded-full ${newPw.length >= 8 ? 'bg-green-500' : 'bg-red-500'}`} />
+                  <span className={newPw.length >= 8 ? 'text-green-400' : 'text-red-400'}>Mínimo 8 caracteres</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs">
+                  <div className={`w-2 h-2 rounded-full ${/[A-Z]/.test(newPw) ? 'bg-green-500' : 'bg-red-500'}`} />
+                  <span className={/[A-Z]/.test(newPw) ? 'text-green-400' : 'text-red-400'}>Una mayúscula</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs">
+                  <div className={`w-2 h-2 rounded-full ${/[a-z]/.test(newPw) ? 'bg-green-500' : 'bg-red-500'}`} />
+                  <span className={/[a-z]/.test(newPw) ? 'text-green-400' : 'text-red-400'}>Una minúscula</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs">
+                  <div className={`w-2 h-2 rounded-full ${/[0-9]/.test(newPw) ? 'bg-green-500' : 'bg-red-500'}`} />
+                  <span className={/[0-9]/.test(newPw) ? 'text-green-400' : 'text-red-400'}>Un número</span>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-xs text-gray-400 mb-1">Confirmar nueva contraseña *</label>
+            <input
+              type="password"
+              value={confirmPw}
+              onChange={(e) => setConfirmPw(e.target.value)}
+              autoComplete="new-password"
+              required
+              className="w-full px-3 py-2 rounded-lg border border-gray-700 text-sm bg-gray-900 text-white"
+              placeholder="••••••••"
+            />
+            {confirmPw && !passwordsMatch && (
+              <p className="text-xs text-red-400 mt-1">Las contraseñas no coinciden</p>
+            )}
+          </div>
+
+          {message && (
+            <p className={`text-sm px-3 py-2 rounded-lg ${message.type === 'success' ? 'text-green-400 bg-green-900/30' : 'text-red-400 bg-red-900/30'}`}>
+              {message.text}
+            </p>
+          )}
+
+          <button
+            type="submit"
+            disabled={loading || !currentPw || !passwordValid || !passwordsMatch}
+            className="px-4 py-2 bg-brand-gold text-white text-sm font-medium rounded-lg hover:bg-brand-gold-dark disabled:opacity-50 flex items-center gap-2"
+          >
+            {loading && <Loader2 className="w-4 h-4 animate-spin" />}
+            Actualizar contraseña
+          </button>
+        </form>
+      </div>
+
+      {/* Sessions */}
+      <div className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden">
+        <div className="flex items-center gap-2 px-5 py-4 border-b border-gray-700">
+          <LogOut className="w-4 h-4 text-brand-gold" />
+          <h3 className="font-semibold text-white text-sm">Sesiones</h3>
+        </div>
+        <div className="px-5 py-4 space-y-3">
+          <p className="text-sm text-gray-400">
+            Cerrar todas las sesiones activas incluyendo esta. Te pedirá ingresar la contraseña de nuevo.
+          </p>
+          <button
+            onClick={handleLogoutAll}
+            disabled={logoutAllLoading}
+            className="flex items-center gap-2 px-4 py-2 bg-red-900/30 text-red-400 text-sm font-medium rounded-lg hover:bg-red-900/50 transition-colors border border-red-800 disabled:opacity-50"
+          >
+            {logoutAllLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogOut className="w-4 h-4" />}
+            Cerrar todas las sesiones
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function AdminConfigPage() {
   const router = useRouter();
-  const [loggingOut, setLoggingOut] = useState(false);
   const [loadingShipping, setLoadingShipping] = useState(true);
   const [savingShipping, setSavingShipping] = useState(false)
   const [shippingMsg, setShippingMsg] = useState<string | null>(null)
@@ -971,13 +1144,6 @@ export default function AdminConfigPage() {
     void fetchPreventa()
     void fetchPickupPoints()
   }, [])
-
-  const handleLogout = async () => {
-    setLoggingOut(true)
-    await fetch('/api/admin/login', { method: 'DELETE' })
-    router.push('/admin/login')
-    router.refresh()
-  }
 
   const handleSaveShipping = async () => {
     setSavingShipping(true)
@@ -1271,9 +1437,11 @@ export default function AdminConfigPage() {
             { value: 'entrega', icon: Truck, label: 'Entrega' },
             { value: 'header', icon: Layout, label: 'Header' },
             { value: 'footer', icon: Palette, label: 'Footer' },
+            { value: 'estilos', icon: Palette, label: 'Colores y Estilos' },
             { value: 'nav', icon: Info, label: 'Nav' },
             { value: 'sobre', icon: Info, label: 'Nosotros' },
             { value: 'contacto', icon: Mail, label: 'Contacto' },
+            { value: 'seguridad', icon: Settings, label: 'Seguridad' },
             { value: 'pagos', icon: Settings, label: 'Pagos' },
           ] as const).map((tab) => {
             const Icon = tab.icon
@@ -1706,7 +1874,9 @@ export default function AdminConfigPage() {
             onSave={handleSaveSiteContent}
             onReset={handleResetSiteContent}
           />
+        </Tabs.Content>
 
+        <Tabs.Content value="estilos">
           <div className="bg-gray-800 border border-gray-700 rounded-xl p-6 space-y-4">
             <h2 className="text-lg font-bold text-white">Colores y estilos</h2>
             {/* Colores */}
@@ -1876,6 +2046,10 @@ export default function AdminConfigPage() {
           />
         </Tabs.Content>
 
+        <Tabs.Content value="seguridad">
+          <SecurityConfigAdmin />
+        </Tabs.Content>
+
         <Tabs.Content value="pagos">
           <div className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden">
             <div className="flex items-center gap-2 px-5 py-4 border-b border-gray-700">
@@ -1908,58 +2082,6 @@ export default function AdminConfigPage() {
           </div>
         </Tabs.Content>
       </Tabs.Root>
-
-      {/* Seguridad */}
-      <div className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden mt-10">
-        <div className="flex items-center gap-2 px-5 py-4 border-b border-gray-700">
-          <Key className="w-4 h-4 text-brand-gold" />
-          <h3 className="font-semibold text-white text-sm">Seguridad</h3>
-        </div>
-        <div className="px-5 py-4 space-y-4">
-          <div>
-            <p className="text-sm text-gray-300 font-medium mb-1">Contraseña de administrador</p>
-            <p className="text-sm text-gray-400">
-              Configura la variable de entorno{' '}
-              <code className="bg-gray-700 px-1.5 py-0.5 rounded text-xs font-mono">ADMIN_PASSWORD</code>{' '}
-              y <code className="bg-gray-700 px-1.5 py-0.5 rounded text-xs font-mono">JWT_SECRET</code>{' '}
-              en tu archivo <code className="bg-gray-700 px-1.5 py-0.5 rounded text-xs font-mono">.env.local</code>
-            </p>
-            <p className="text-xs text-yellow-400 bg-yellow-900/30 px-3 py-2 rounded-lg mt-2">
-              ⚠️ La contraseña por defecto <strong>admin123</strong> solo aplica en desarrollo local.
-              En despliegue necesitás definir <code>ADMIN_PASSWORD</code> y <code>JWT_SECRET</code>.
-            </p>
-          </div>
-          <button
-            onClick={handleLogout}
-            disabled={loggingOut}
-            className="flex items-center gap-2 px-4 py-2 bg-red-900/30 text-red-400 text-sm font-medium rounded-lg hover:bg-red-900/50 transition-colors border border-red-800 disabled:opacity-50"
-          >
-            {loggingOut ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogOut className="w-4 h-4" />}
-            Cerrar sesión
-          </button>
-        </div>
-      </div>
-
-      {/* Info del sistema */}
-      <div className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden mt-6">
-        <div className="flex items-center gap-2 px-5 py-4 border-b border-gray-700">
-          <Settings className="w-4 h-4 text-brand-gold" />
-          <h3 className="font-semibold text-white text-sm">Información del sistema</h3>
-        </div>
-        <div className="px-5 py-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {[
-            { label: 'Versión', value: '1.0.0' },
-            { label: 'Stack', value: 'Next.js 14 + Prisma' },
-            { label: 'Base de datos', value: 'SQLite (dev) / PostgreSQL (prod)' },
-            { label: 'Pagos', value: paymentSettings.enabledProviders.length ? paymentSettings.enabledProviders.join(' + ') : 'Sin configurar' },
-          ].map((item) => (
-            <div key={item.label}>
-              <p className="text-xs text-gray-400">{item.label}</p>
-              <p className="text-sm text-white">{item.value}</p>
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   )
 }
