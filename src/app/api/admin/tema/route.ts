@@ -73,6 +73,16 @@ const themeSchema = z.object({
   infoSubtitle2: z.string().max(300),
   infoTitle3: z.string().min(1).max(100),
   infoSubtitle3: z.string().max(300),
+  sectionHeaderBg: hexColor,
+  sectionHeaderOpacity: z.string().regex(/^\d+$/),
+  sectionHeroBg: hexColor,
+  sectionHeroOpacity: z.string().regex(/^\d+$/),
+  sectionProductsBg: hexColor,
+  sectionProductsOpacity: z.string().regex(/^\d+$/),
+  sectionInfoBg: hexColor,
+  sectionInfoOpacity: z.string().regex(/^\d+$/),
+  sectionFooterBg: hexColor,
+  sectionFooterOpacity: z.string().regex(/^\d+$/),
 })
 
 type ThemeConfig = z.infer<typeof themeSchema>
@@ -111,6 +121,16 @@ const DEFAULT_THEME: ThemeConfig = {
   infoSubtitle2: 'Productos frescos sin intermediarios. Calidad garantizada.',
   infoTitle3: 'Reparto a Domicilio',
   infoSubtitle3: 'Retirá en punto de recogida o recibe en tu casa.',
+  sectionHeaderBg: '#2C2C2C',
+  sectionHeaderOpacity: '85',
+  sectionHeroBg: '#000000',
+  sectionHeroOpacity: '50',
+  sectionProductsBg: '#000000',
+  sectionProductsOpacity: '25',
+  sectionInfoBg: '#000000',
+  sectionInfoOpacity: '20',
+  sectionFooterBg: '#2C2C2C',
+  sectionFooterOpacity: '85',
 }
 
 const THEME_KEYS = Object.keys(DEFAULT_THEME) as (keyof ThemeConfig)[]
