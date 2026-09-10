@@ -46,13 +46,13 @@ function LoginForm() {
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4">
+          <div className="flex items-center justify-center mx-auto mb-4">
             <Image
                 src="/img/web_clarayyema/Logo_color_CyY.png"
                 alt="Clara y Yema"
-                width={80}
-                height={80}
-                className="object-contain"
+                width={200}
+                height={200}
+                className="object-contain w-40 h-40 md:w-48 md:h-48"
               />
           </div>
           <h1 className="text-2xl font-bold text-gray-900">Clara y Yema</h1>
