@@ -21,13 +21,13 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.png', type: 'image/png' },
+      { url: '/favicon-egg.svg', type: 'image/svg+xml' },
       { url: '/api/icon?size=192', sizes: '192x192', type: 'image/png' },
       { url: '/api/icon?size=512', sizes: '512x512', type: 'image/png' },
     ],
-    shortcut: ['/favicon.png'],
+    shortcut: ['/favicon-egg.svg'],
     apple: [
-      { url: '/favicon.png', type: 'image/png' },
+      { url: '/favicon-egg.svg', type: 'image/svg+xml' },
       { url: '/api/icon?size=180', sizes: '180x180', type: 'image/png' },
     ],
   },

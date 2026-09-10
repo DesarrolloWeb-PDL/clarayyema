@@ -5,12 +5,12 @@ import path from 'path'
 export const dynamic = 'force-static'
 
 export async function GET() {
-  const fallbackPath = path.join(process.cwd(), 'public', 'favicon.png')
-  const buffer = await readFile(fallbackPath)
+  const eggPath = path.join(process.cwd(), 'public', 'favicon-egg.svg')
+  const buffer = await readFile(eggPath)
 
   return new NextResponse(buffer, {
     headers: {
-      'Content-Type': 'image/png',
+      'Content-Type': 'image/svg+xml',
       'Cache-Control': 'public, max-age=86400',
     },
   })

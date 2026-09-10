@@ -93,7 +93,7 @@ export async function GET() {
     const theme = {
       appTitle: themeMap.theme_appTitle ?? 'Clara y Yema',
       appSubtitle: themeMap.theme_appSubtitle ?? 'Productos frescos de huerta directo al consumidor',
-      logoUrl: themeMap.theme_logoUrl ?? '/img/espiga.png',
+      logoUrl: themeMap.theme_logoUrl ?? '/img/web_clarayyema/Logo_color_CyY.png',
       primaryColor: themeMap.theme_primaryColor ?? '#d89a44',
       secondaryColor: themeMap.theme_secondaryColor ?? '#2c2c2c',
       accentColor: themeMap.theme_accentColor ?? '#f5f5f5',

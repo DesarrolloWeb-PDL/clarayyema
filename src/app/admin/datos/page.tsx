@@ -150,7 +150,7 @@ export default function AdminDatosPage() {
             <div className="pt-1">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={normalizePublicAssetUrl(data.theme.logoUrl) || '/img/espiga.png'}
+                src={normalizePublicAssetUrl(data.theme.logoUrl) || '/img/web_clarayyema/Logo_color_CyY.png'}
                 alt="Logo actual"
                 className="h-14 w-14 object-contain border border-gray-700 rounded-lg bg-white"
               />

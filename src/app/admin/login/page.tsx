@@ -48,11 +48,11 @@ function LoginForm() {
         <div className="text-center mb-8">
           <div className="w-16 h-16 bg-brand-gold rounded-2xl flex items-center justify-center mx-auto mb-4">
             <Image
-                src="/favicon.png"
+                src="/favicon-egg.svg"
                 alt="Clara y Yema"
-                width={36}
-                height={36}
-                className="object-contain brightness-0 invert"
+                width={40}
+                height={40}
+                className="object-contain"
               />
           </div>
           <h1 className="text-2xl font-bold text-gray-900">Clara y Yema</h1>

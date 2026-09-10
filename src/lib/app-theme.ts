@@ -22,7 +22,7 @@ export interface AppTheme {
 const DEFAULT_THEME: AppTheme = {
   appTitle: 'Clara y Yema',
   appSubtitle: 'Productos frescos de huerta directo al consumidor',
-  logoUrl: '/img/espiga.png',
+  logoUrl: '/img/web_clarayyema/Logo_color_CyY.png',
   heroImageUrl: '/img/hero-bg.png',
   primaryColor: '#d89a44',
   secondaryColor: '#2c2c2c',

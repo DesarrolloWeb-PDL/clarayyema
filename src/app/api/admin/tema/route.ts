@@ -80,7 +80,7 @@ type ThemeConfig = z.infer<typeof themeSchema>
 const DEFAULT_THEME: ThemeConfig = {
   appTitle: 'Clara y Yema',
   appSubtitle: 'Productos frescos de huerta directo al consumidor',
-  logoUrl: '/img/espiga.png',
+  logoUrl: '/img/web_clarayyema/Logo_color_CyY.png',
   heroImageUrl: '/img/hero-bg.png',
   primaryColor: '#D4A95A',
   primaryHover: '#C49A4A',

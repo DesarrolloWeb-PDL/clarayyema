@@ -793,7 +793,7 @@ export default function AdminConfigPage() {
   const [theme, setTheme] = useState({
     appTitle: 'Clara y Yema',
     appSubtitle: 'Productos frescos de huerta directo al consumidor',
-    logoUrl: '/img/espiga.png',
+    logoUrl: '/img/web_clarayyema/Logo_color_CyY.png',
     primaryColor: '#D4A95A',
     primaryHover: '#C49A4A',
     secondaryColor: '#2C2C2C',
@@ -1386,13 +1386,13 @@ export default function AdminConfigPage() {
               <div className="mt-3 p-3 bg-gray-700 rounded-lg border border-gray-700">
                 <p className="text-xs text-gray-400 mb-2">Vista previa:</p>
                 <Image
-                  src={normalizePublicAssetUrl(theme.logoUrl) || '/img/espiga.png'}
+                  src={normalizePublicAssetUrl(theme.logoUrl) || '/img/web_clarayyema/Logo_color_CyY.png'}
                   alt="Logo preview"
                   width={64}
                   height={64}
                   className="h-16 object-contain"
                   priority
-                  unoptimized={/^https?:\/\//i.test(normalizePublicAssetUrl(theme.logoUrl) || '/img/espiga.png')}
+                  unoptimized={/^https?:\/\//i.test(normalizePublicAssetUrl(theme.logoUrl) || '/img/web_clarayyema/Logo_color_CyY.png')}
                 />
               </div>
             )}
@@ -1409,20 +1409,20 @@ export default function AdminConfigPage() {
             >
               <option value="24">24px — Chico</option>
               <option value="32">32px — Mediano-chico</option>
-              <option value="36">36px — Mediano (predeterminado)</option>
-              <option value="40">40px — Mediano-grande</option>
-              <option value="48">48px — Grande</option>
-              <option value="56">56px — Extra grande</option>
-              <option value="64">64px — Máximo</option>
+              <option value="40">40px — Mediano</option>
+              <option value="48">48px — Mediano-grande</option>
+              <option value="56">56px — Grande (predeterminado)</option>
+              <option value="64">64px — Extra grande</option>
+              <option value="80">80px — Máximo</option>
             </select>
             <div className="mt-2 flex items-center gap-2">
               <Image
-                src={normalizePublicAssetUrl(theme.logoUrl) || '/img/espiga.png'}
+                src={normalizePublicAssetUrl(theme.logoUrl) || '/img/web_clarayyema/Logo_color_CyY.png'}
                 alt="Logo preview size"
-                width={Number(theme.logoSize) || 36}
-                height={Number(theme.logoSize) || 36}
+                width={Number(theme.logoSize) || 56}
+                height={Number(theme.logoSize) || 56}
                 className="object-contain border border-gray-700 rounded"
-                unoptimized={/^https?:\/\//i.test(normalizePublicAssetUrl(theme.logoUrl) || '/img/espiga.png')}
+                unoptimized={/^https?:\/\//i.test(normalizePublicAssetUrl(theme.logoUrl) || '/img/web_clarayyema/Logo_color_CyY.png')}
               />
               <span className="text-xs text-gray-400">{theme.logoSize}px</span>
             </div>

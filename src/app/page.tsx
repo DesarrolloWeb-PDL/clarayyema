@@ -231,9 +231,9 @@ export default async function HomePage() {
                 <Image
                   src={themeConfig.logoUrl}
                   alt={themeConfig.infoTitle2}
-                  width={40}
-                  height={40}
-                  className="mx-auto mb-3 w-10 h-10 object-contain"
+                  width={64}
+                  height={64}
+                  className="mx-auto mb-3 w-12 h-12 md:w-16 md:h-16 object-contain"
                 />
               ) : (
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-10 h-10 mx-auto mb-3 text-brand-gold">

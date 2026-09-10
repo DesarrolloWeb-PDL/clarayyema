@@ -64,10 +64,10 @@ export function Header({ siteContent, showCart = true }: HeaderProps) {
               <Image
                 src={logoSrc}
                 alt={theme.appTitle}
-                className="object-contain shrink-0"
-                style={{ width: 'var(--brand-logo-size)', height: 'var(--brand-logo-size)', maxWidth: '35vw' }}
-                width={Number(theme.logoSize) || 36}
-                height={Number(theme.logoSize) || 36}
+                className="object-contain shrink-0 h-10 w-10 md:h-14 md:w-14"
+                style={{ maxWidth: '35vw' }}
+                width={Number(theme.logoSize) || 56}
+                height={Number(theme.logoSize) || 56}
                 unoptimized={logoIsExternal}
               />
             )}

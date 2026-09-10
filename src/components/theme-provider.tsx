@@ -34,7 +34,7 @@ export type ThemeSettings = {
 export const DEFAULT_THEME: ThemeSettings = {
   appTitle: 'Clara y Yema',
   appSubtitle: 'Productos frescos de huerta directo al consumidor',
-  logoUrl: '/img/espiga.png',
+  logoUrl: '/img/web_clarayyema/Logo_color_CyY.png',
   primaryColor: '#D4A95A',
   primaryHover: '#C49A4A',
   secondaryColor: '#2C2C2C',
@@ -46,7 +46,7 @@ export const DEFAULT_THEME: ThemeSettings = {
   fontHeading: 'system-ui',
   fontBody: 'system-ui',
   fontSizeTitle: 'clamp(1rem, 2.5vw, 1.5rem)',
-  logoSize: '36',
+  logoSize: '56',
   titleAlign: 'left',
   borderColor: '#544A37',
   mutedBg: '#433D32',

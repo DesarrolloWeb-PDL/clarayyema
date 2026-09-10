@@ -121,9 +121,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <Image
                 src={logoSrc}
                 alt="Clara y Yema Admin"
-                width={36}
-                height={36}
-                className="h-9 w-9 shrink-0 object-contain"
+                width={40}
+                height={40}
+                className="h-10 w-10 shrink-0 object-contain"
               />
             )}
             <div>
