@@ -50,6 +50,10 @@
   :root {
     --background: 40 10% 18%;
     --foreground: 40 48% 59%;
+    --safe-area-top: env(safe-area-inset-top, 0px);
+    --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-area-left: env(safe-area-inset-left, 0px);
+    --safe-area-right: env(safe-area-inset-right, 0px);
 
     --card: 0 0% 17%;
     --card-foreground: 40 48% 59%;
@@ -144,5 +148,44 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--brand-font-heading), system-ui, sans-serif;
     color: var(--brand-primary);
+  }
+}
+
+/* ── Mobile & Safe Area Fixes ── */
+@supports (padding: env(safe-area-inset-top)) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Prevent iOS bounce on overscroll */
+html {
+  overscroll-behavior: none;
+}
+
+/* Fix iOS tap highlight */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent text size inflation on mobile */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Smooth scroll for anchor links */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Mobile: reduce padding on containers */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }

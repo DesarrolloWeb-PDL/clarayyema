@@ -48,8 +48,9 @@ export function Header({ siteContent, showCart = true }: HeaderProps) {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full border-b transition-all duration-300 backdrop-blur-xl overflow-visible"
+      className="sticky z-50 w-full border-b transition-all duration-300 backdrop-blur-xl overflow-visible"
       style={{
+        top: 'var(--safe-area-top, 0px)',
         backgroundColor: 'var(--brand-section-header)',
         borderColor: theme.primaryColor + '30',
       }}
