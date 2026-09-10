@@ -30,16 +30,16 @@ export function TranslatedHomeHero({ themeConfig, timeGatingData }: TranslatedHo
     <section
       className={`relative border-b border-brand-gold/20 ${
         themeConfig.heroImageUrl
-          ? 'flex items-center min-h-[80vh] bg-black/50'
+          ? 'bg-black/50'
           : 'bg-gradient-to-r from-brand-gold/15 to-brand-gold/5'
       }`}
     >
-      <div className="container mx-auto px-4 py-12 relative z-10 w-full">
+      <div className="container mx-auto px-4 py-10 md:py-14 relative z-10 w-full">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className={`text-4xl md:text-5xl font-bold mb-4 ${themeConfig.heroImageUrl ? 'text-white' : 'text-brand-gold-dark'}`}>
+          <h1 className={`text-3xl md:text-4xl font-bold mb-3 ${themeConfig.heroImageUrl ? 'text-white' : 'text-brand-gold-dark'}`}>
             {content.heroTitle}
           </h1>
-          <p className={`text-lg mb-6 ${themeConfig.heroImageUrl ? 'text-white/90' : 'text-brand-gold/80'}`}>
+          <p className={`text-base md:text-lg mb-5 ${themeConfig.heroImageUrl ? 'text-white/90' : 'text-brand-gold/80'}`}>
             {content.heroSubtitle}
           </p>
 
