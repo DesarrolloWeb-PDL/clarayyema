@@ -1419,8 +1419,8 @@ export default function AdminConfigPage() {
               <Image
                 src={normalizePublicAssetUrl(theme.logoUrl) || '/img/web_clarayyema/Logo_color_CyY.png'}
                 alt="Logo preview size"
-                width={Number(theme.logoSize) || 56}
-                height={Number(theme.logoSize) || 56}
+                width={Number(theme.logoSize) || 64}
+                height={Number(theme.logoSize) || 64}
                 className="object-contain border border-gray-700 rounded"
                 unoptimized={/^https?:\/\//i.test(normalizePublicAssetUrl(theme.logoUrl) || '/img/web_clarayyema/Logo_color_CyY.png')}
               />
