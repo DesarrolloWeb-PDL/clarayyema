@@ -58,15 +58,15 @@ export function Header({ siteContent, showCart = true }: HeaderProps) {
         className="mx-auto px-4"
         style={{ maxWidth: 'var(--brand-header-max-width, 1280px)' }}
       >
-        <div className="flex h-24 md:h-28 items-center justify-between">
+        <div className="flex h-32 md:h-40 items-center justify-between">
           <Link href="/" className="flex items-center gap-3 shrink-0">
             {theme.logoUrl && (
               <Image
                 src={logoSrc}
                 alt={theme.appTitle}
-                className="object-contain shrink-0 h-20 w-20 md:h-28 md:w-28"
-                width={Number(theme.logoSize) || 112}
-                height={Number(theme.logoSize) || 112}
+                className="object-contain shrink-0 h-[112px] w-[112px] md:h-[160px] md:w-[160px]"
+                width={Number(theme.logoSize) || 160}
+                height={Number(theme.logoSize) || 160}
                 unoptimized={logoIsExternal}
                 priority
               />

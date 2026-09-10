@@ -233,7 +233,7 @@ export default async function HomePage() {
                   alt={themeConfig.infoTitle2}
                   width={80}
                   height={80}
-                  className="mx-auto mb-3 w-14 h-14 md:w-20 md:h-20 object-contain"
+                  className="mx-auto mb-3 w-[70px] h-[70px] md:w-[100px] md:h-[100px] object-contain"
                 />
               ) : (
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-10 h-10 mx-auto mb-3 text-brand-gold">
