@@ -36,6 +36,19 @@ export function TimeGatingBanner({
 }: TimeGatingBannerProps) {
   const { t } = useLanguage();
 
+  const dayMap: Record<string, string> = {
+    'Domingo': t.daySunday,
+    'Lunes': t.dayMonday,
+    'Martes': t.dayTuesday,
+    'Miércoles': t.dayWednesday,
+    'Jueves': t.dayThursday,
+    'Viernes': t.dayFriday,
+    'Sábado': t.daySaturday,
+  };
+
+  const translatedOpeningDay = openingDayLabel ? (dayMap[openingDayLabel] ?? openingDayLabel) : '';
+  const translatedClosingDay = closingDayLabel ? (dayMap[closingDayLabel] ?? closingDayLabel) : '';
+
   if (isOpen) {
     return (
       <Card className="bg-green-50 border-green-200">
@@ -50,7 +63,7 @@ export function TimeGatingBanner({
               {t.timeOpen}
             </h3>
             <p className="text-sm text-green-700">
-              {t.timeOpenBetween} {openingDayLabel} {String(openingHour).padStart(2, '0')}:{String(openingMinute).padStart(2, '0')} y {closingDayLabel} {String(closingHour).padStart(2, '0')}:{String(closingMinute).padStart(2, '0')}
+              {t.timeOpenBetween} {translatedOpeningDay} {String(openingHour).padStart(2, '0')}:{String(openingMinute).padStart(2, '0')} y {translatedClosingDay} {String(closingHour).padStart(2, '0')}:{String(closingMinute).padStart(2, '0')}
             </p>
           </div>
           <Badge variant="success" className="shrink-0">
@@ -80,7 +93,7 @@ export function TimeGatingBanner({
             </p>
           )}
           <p className="text-xs text-red-300 mt-2">
-            {t.timeSchedule} {openingDayLabel} {String(openingHour).padStart(2, '0')}:{String(openingMinute).padStart(2, '0')} a {closingDayLabel} {String(closingHour).padStart(2, '0')}:{String(closingMinute).padStart(2, '0')}
+            {t.timeSchedule} {translatedOpeningDay} {String(openingHour).padStart(2, '0')}:{String(openingMinute).padStart(2, '0')} a {translatedClosingDay} {String(closingHour).padStart(2, '0')}:{String(closingMinute).padStart(2, '0')}
           </p>
         </div>
         <Badge variant="destructive" className="shrink-0">

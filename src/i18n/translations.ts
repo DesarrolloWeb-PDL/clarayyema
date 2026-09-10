@@ -159,6 +159,15 @@ export interface Translations {
   whatsappFaqOrderAnswer: string;
   whatsappFaqPickup: string;
   whatsappFaqPickupAnswer: string;
+  daySunday: string;
+  dayMonday: string;
+  dayTuesday: string;
+  dayWednesday: string;
+  dayThursday: string;
+  dayFriday: string;
+  daySaturday: string;
+  footerLabelEmail: string;
+  footerLabelPhone: string;
 }
 
 const ES: Translations = {
@@ -320,6 +329,15 @@ const ES: Translations = {
   whatsappFaqOrderAnswer: "Entrá a nuestra tienda online, elegí los productos y completá el checkout. Aceptamos transferencia y Mercado Pago.",
   whatsappFaqPickup: "¿Dónde retiran los pedidos?",
   whatsappFaqPickupAnswer: "Tenemos puntos de recogida en distintas zonas. Elegís el que más te convenga al hacer tu pedido.",
+  daySunday: "Domingo",
+  dayMonday: "Lunes",
+  dayTuesday: "Martes",
+  dayWednesday: "Miércoles",
+  dayThursday: "Jueves",
+  dayFriday: "Viernes",
+  daySaturday: "Sábado",
+  footerLabelEmail: "Email:",
+  footerLabelPhone: "Tel:",
 };
 
 const PT: Translations = {
@@ -469,18 +487,27 @@ const PT: Translations = {
   whatsappAriaLabel: "Contatar por WhatsApp",
   whatsappChatOpen: "Abrir chat do WhatsApp",
   whatsappChatClose: "Fechar chat",
-  whatsappFaqSourdough: "O que é pão de massa madre?",
-  whatsappFaqSourdoughAnswer: "O pão de massa madre é um pão fermentado naturalmente com leveduras e bactérias próprias do processo. Não usamos leveduras industriais.",
-  whatsappFaqDelivery: "Quando são entregues os pedidos?",
-  whatsappFaqDeliveryAnswer: "A pré-venda abre às quartas e é entregue aos sábados. Coordenamos retirada nos pontos ou entrega local.",
-  whatsappFaqLocalDelivery: "Fazem entregas a domicílio?",
-  whatsappFaqLocalDeliveryAnswer: "Sim, oferecemos entrega local em Utrera no mesmo dia do forno. Também temos pontos de retirada.",
-  whatsappFaqGluten: "Têm opções sem glúten?",
-  whatsappFaqGlutenAnswer: "Nossos pães contêm trigo. Não temos opções sem glúten no momento.",
-  whatsappFaqOrder: "Como faço meu pedido?",
-  whatsappFaqOrderAnswer: "Acesse nossa loja online, escolha os produtos e finalize o checkout. Aceitamos transferência e Mercado Pago.",
+  whatsappFaqSourdough: "Quais produtos voces vendem?",
+  whatsappFaqSourdoughAnswer: "Vendemos produtos frescos da horta: ovos caseiros, verduras, frutas e mais. Tudo direto do campo.",
+  whatsappFaqDelivery: "Quando sao entregues os pedidos?",
+  whatsappFaqDeliveryAnswer: "A pré-venda abre as quartas e e entregue aos sabados. Coordenamos retirada nos pontos ou entrega local.",
+  whatsappFaqLocalDelivery: "Fazem entregas a domicilio?",
+  whatsappFaqLocalDeliveryAnswer: "Sim, oferecemos entrega local em Utrera no dia de entrega. Tambem temos pontos de retirada.",
+  whatsappFaqGluten: "Tem produtos organicos?",
+  whatsappFaqGlutenAnswer: "Trabalhamos com produtores locais. Pergunte sobre disponibilidade de produtos organicos.",
+  whatsappFaqOrder: "Como faco meu pedido?",
+  whatsappFaqOrderAnswer: "Acesse nossa loja online, escolha os produtos e finalize o checkout. Aceitamos transferencia e Mercado Pago.",
   whatsappFaqPickup: "Onde retiram os pedidos?",
-  whatsappFaqPickupAnswer: "Temos pontos de retirada em diferentes zonas de Utrera. Você escolhe o mais conveniente ao fazer seu pedido.",
+  whatsappFaqPickupAnswer: "Temos pontos de retirada em diferentes zonas de Utrera. Voce escolhe o mais conveniente ao fazer seu pedido.",
+  daySunday: "Domingo",
+  dayMonday: "Segunda-feira",
+  dayTuesday: "Terca-feira",
+  dayWednesday: "Quarta-feira",
+  dayThursday: "Quinta-feira",
+  dayFriday: "Sexta-feira",
+  daySaturday: "Sabado",
+  footerLabelEmail: "Email:",
+  footerLabelPhone: "Tel:",
 };
 
 const EN: Translations = {
@@ -642,6 +669,15 @@ const EN: Translations = {
   whatsappFaqOrderAnswer: "Visit our online store, choose your products and complete checkout. We accept bank transfer and Mercado Pago.",
   whatsappFaqPickup: "Where do you pick up orders?",
   whatsappFaqPickupAnswer: "We have pickup points in different areas. You choose the most convenient one when placing your order.",
+  daySunday: "Sunday",
+  dayMonday: "Monday",
+  dayTuesday: "Tuesday",
+  dayWednesday: "Wednesday",
+  dayThursday: "Thursday",
+  dayFriday: "Friday",
+  daySaturday: "Saturday",
+  footerLabelEmail: "Email:",
+  footerLabelPhone: "Tel:",
 };
 
 const translations: Record<Lang, Translations> = { es: ES, pt: PT, en: EN };

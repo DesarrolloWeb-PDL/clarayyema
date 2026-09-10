@@ -85,9 +85,9 @@ export default function Footer({ siteContent }: FooterProps) {
               {t.footerContactTitle}
             </h3>
             <p className="text-sm" style={{ color: 'var(--brand-text-muted)' }}>
-              Email: {siteContent.contactEmail}
+              {t.footerLabelEmail} {siteContent.contactEmail}
               <br />
-              Tel: {siteContent.contactPhone}
+              {t.footerLabelPhone} {siteContent.contactPhone}
               <br />
               {siteContent.contactAddress}
             </p>
