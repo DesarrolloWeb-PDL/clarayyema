@@ -46,7 +46,7 @@ export const DEFAULT_THEME: ThemeSettings = {
   fontHeading: 'system-ui',
   fontBody: 'system-ui',
   fontSizeTitle: 'clamp(1rem, 2.5vw, 1.5rem)',
-  logoSize: '64',
+  logoSize: '112',
   titleAlign: 'left',
   borderColor: '#544A37',
   mutedBg: '#433D32',

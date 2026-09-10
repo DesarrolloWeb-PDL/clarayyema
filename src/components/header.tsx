@@ -48,7 +48,7 @@ export function Header({ siteContent, showCart = true }: HeaderProps) {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full border-b transition-all duration-300 backdrop-blur-xl"
+      className="sticky top-0 z-50 w-full border-b transition-all duration-300 backdrop-blur-xl overflow-visible"
       style={{
         backgroundColor: scrolled ? 'rgba(44, 44, 44, 0.85)' : 'rgba(44, 44, 44, 0.6)',
         borderColor: theme.primaryColor + '30',
@@ -58,31 +58,19 @@ export function Header({ siteContent, showCart = true }: HeaderProps) {
         className="mx-auto px-4"
         style={{ maxWidth: 'var(--brand-header-max-width, 1280px)' }}
       >
-        <div className="flex h-20 md:h-24 items-center justify-between">
-          <Link href="/" className="flex items-center space-x-3 min-w-0 max-w-[65%] sm:max-w-none">
+        <div className="flex h-24 md:h-28 items-center justify-between">
+          <Link href="/" className="flex items-center gap-3 shrink-0">
             {theme.logoUrl && (
               <Image
                 src={logoSrc}
                 alt={theme.appTitle}
-                className="object-contain shrink-0 h-12 w-12 md:h-16 md:w-16"
-                width={Number(theme.logoSize) || 64}
-                height={Number(theme.logoSize) || 64}
+                className="object-contain shrink-0 h-20 w-20 md:h-28 md:w-28"
+                width={Number(theme.logoSize) || 112}
+                height={Number(theme.logoSize) || 112}
                 unoptimized={logoIsExternal}
+                priority
               />
             )}
-            <div className="min-w-0 truncate" style={{ textAlign: theme.titleAlign as any }}>
-              <span
-                className="font-bold block leading-tight truncate"
-                style={{ color: theme.primaryColor, fontSize: theme.fontSizeTitle, fontFamily: theme.fontHeading }}
-              >
-                {theme.appTitle}
-              </span>
-              {theme.appSubtitle && (
-                <span className="text-[10px] sm:text-xs truncate block" style={{ color: theme.textMuted }}>
-                  {theme.appSubtitle}
-                </span>
-              )}
-            </div>
           </Link>
 
           <nav className="hidden md:flex items-center space-x-6">
