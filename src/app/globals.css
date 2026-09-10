@@ -2,6 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Custom Fonts ── */
+@font-face {
+  font-family: 'Avenir Next';
+  src: url('/fonts/AvenirNext.ttc');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Avenir Next';
+  src: url('/fonts/AvenirNext.ttc');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Avenir Next Condensed';
+  src: url('/fonts/AvenirNextCondensed.ttc');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Avenir Next Condensed';
+  src: url('/fonts/AvenirNextCondensed.ttc');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Avenir';
+  src: url('/fonts/Avenir.ttc');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Holen Vintage';
+  src: url('/fonts/HolenVintage.otf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --background: 40 10% 18%;

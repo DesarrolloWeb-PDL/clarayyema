@@ -101,6 +101,9 @@ const config = {
       fontFamily: {
         heading: ['var(--brand-font-heading)', 'system-ui', 'sans-serif'],
         body: ['var(--brand-font-body)', 'system-ui', 'sans-serif'],
+        avenir: ['"Avenir Next"', '"Avenir"', 'system-ui', 'sans-serif'],
+        'avenir-condensed': ['"Avenir Next Condensed"', '"Avenir"', 'system-ui', 'sans-serif'],
+        'holen': ['"Holen Vintage"', 'cursive'],
       },
       borderRadius: {
         lg: "var(--radius)",
