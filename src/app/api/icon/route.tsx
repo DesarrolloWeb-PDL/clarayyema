@@ -1,6 +1,6 @@
-import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
-import { getThemeConfig } from '@/lib/app-theme';
+import { readFile } from 'fs/promises';
+import path from 'path';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,64 +9,24 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const size = parseInt(searchParams.get('size') || '192');
 
-    const theme = await getThemeConfig();
+    const svgPath = path.join(process.cwd(), 'public', 'favicon-egg.svg');
+    const svgBuffer = await readFile(svgPath);
+    const svgText = svgBuffer.toString('utf-8');
 
-    const baseUrl = process.env.NEXT_PUBLIC_URL || new URL(request.url).origin;
-    let logoUrl = '';
-    if (theme.logoUrl) {
-      if (/^https?:\/\//i.test(theme.logoUrl)) {
-        logoUrl = theme.logoUrl;
-      } else if (theme.logoUrl.startsWith('/')) {
-        logoUrl = `${baseUrl}${theme.logoUrl}`;
-      }
-    }
-
-    const primaryColor = theme.primaryColor || '#d4a95a';
-    const secondaryColor = theme.secondaryColor || '#383333';
-    const appTitle = theme.appTitle || 'Clara y Yema';
-
-    const response = new ImageResponse(
-      (
-        <div
-          style={{
-            background: secondaryColor,
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '20px',
-          }}
-        >
-          {logoUrl ? (
-            <img
-              src={logoUrl}
-              alt="Logo"
-              width={size * 0.7}
-              height={size * 0.7}
-              style={{
-                objectFit: 'contain',
-              }}
-            />
-          ) : (
-            <div style={{ fontSize: size * 0.4, fontWeight: 'bold' }}>🥖</div>
-          )}
-        </div>
-      ),
-      {
-        width: size,
-        height: size,
-        headers: {
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Pragma': 'no-cache',
-          'Expires': '0',
-        },
-      }
+    // Scale the SVG viewBox to the requested size
+    const sizedSvg = svgText.replace(
+      'viewBox="0 0 512 512"',
+      `viewBox="0 0 512 512" width="${size}" height="${size}"`
     );
 
-    return response;
+    return new Response(sizedSvg, {
+      headers: {
+        'Content-Type': 'image/svg+xml',
+        'Cache-Control': 'public, max-age=86400',
+      },
+    });
   } catch (e) {
-    console.error('Error generating icon:', e);
+    console.error('Error serving icon:', e);
     return new Response('Error generating icon', { status: 500 });
   }
 }
