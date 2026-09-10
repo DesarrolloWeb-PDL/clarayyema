@@ -5,6 +5,7 @@ import {
   type PaymentProvider,
   getPaymentSettings,
   setBankTransferSettings,
+  setPayOnDeliverySettings,
   setDefaultPaymentProvider,
   setStripeSecretKey,
   setMercadoPagoAccessToken,
@@ -32,6 +33,9 @@ const updateSchema = z.object({
     cuit: z.string().max(30),
     notes: z.string().max(500),
   }),
+  payOnDelivery: z.object({
+    enabled: z.boolean(),
+  }).optional().default({ enabled: false }),
 });
 
 export async function GET() {
@@ -47,6 +51,7 @@ export async function GET() {
     mercadopagoAccessToken: '',
     stripeEnabled: settings.enabledProviders.includes('STRIPE'),
     mercadopagoEnabled: settings.enabledProviders.includes('MERCADO_PAGO'),
+    payOnDeliveryEnabled: settings.enabledProviders.includes('PAY_ON_DELIVERY'),
     options: PAYMENT_PROVIDERS.map((provider) => ({
       value: provider,
       label: PAYMENT_PROVIDER_LABELS[provider],
@@ -64,7 +69,7 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Datos inválidos' }, { status: 400 });
     }
 
-    const { defaultProvider, stripeEnabled, mercadopagoEnabled, stripeSecretKey, mercadopagoAccessToken, bankTransfer } = parsed.data;
+    const { defaultProvider, stripeEnabled, mercadopagoEnabled, stripeSecretKey, mercadopagoAccessToken, bankTransfer, payOnDelivery } = parsed.data;
 
     const bankTransferWillBeEnabled =
       bankTransfer.enabled &&
@@ -103,11 +108,13 @@ export async function PUT(request: NextRequest) {
     }
 
     await setBankTransferSettings(bankTransfer);
+    await setPayOnDeliverySettings(payOnDelivery.enabled);
 
     const nextEnabledProviders: PaymentProvider[] = [];
     if (stripeEnabled) nextEnabledProviders.push('STRIPE');
     if (mercadopagoEnabled) nextEnabledProviders.push('MERCADO_PAGO');
     if (bankTransferWillBeEnabled) nextEnabledProviders.push('BANK_TRANSFER');
+    if (payOnDelivery.enabled) nextEnabledProviders.push('PAY_ON_DELIVERY');
 
     const finalDefault = nextEnabledProviders.includes(defaultProvider as PaymentProvider)
       ? defaultProvider

@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/db'
 
-export const PAYMENT_PROVIDERS = ['STRIPE', 'MERCADO_PAGO', 'BANK_TRANSFER'] as const
+export const PAYMENT_PROVIDERS = ['STRIPE', 'MERCADO_PAGO', 'BANK_TRANSFER', 'PAY_ON_DELIVERY'] as const
 
 export type PaymentProvider = (typeof PAYMENT_PROVIDERS)[number]
 
@@ -8,12 +8,14 @@ export const PAYMENT_PROVIDER_LABELS: Record<PaymentProvider, string> = {
   STRIPE: 'Tarjeta con Stripe',
   MERCADO_PAGO: 'Mercado Pago',
   BANK_TRANSFER: 'Transferencia bancaria',
+  PAY_ON_DELIVERY: 'Reserva — Pago en entrega',
 }
 
 export const ORDER_PAYMENT_METHOD_LABELS: Record<string, string> = {
   stripe: 'Tarjeta con Stripe',
   mercadopago: 'Mercado Pago',
   bank_transfer: 'Transferencia bancaria',
+  pay_on_delivery: 'Reserva — Pago en entrega',
 }
 
 export function formatOrderPaymentMethod(value: string) {
@@ -190,18 +192,46 @@ export async function setBankTransferSettings(settings: BankTransferSettings) {
   )
 }
 
+const PAY_ON_DELIVERY_PREFIX = 'payment_pay_on_delivery_'
+
+export async function getPayOnDeliverySettings(): Promise<{ enabled: boolean }> {
+  try {
+    const row = await prisma.siteConfig.findUnique({
+      where: { key: `${PAY_ON_DELIVERY_PREFIX}enabled` },
+      select: { value: true },
+    })
+    return { enabled: parseBoolean(row?.value) }
+  } catch {
+    return { enabled: false }
+  }
+}
+
+export async function setPayOnDeliverySettings(enabled: boolean) {
+  await prisma.siteConfig.upsert({
+    where: { key: `${PAY_ON_DELIVERY_PREFIX}enabled` },
+    create: { key: `${PAY_ON_DELIVERY_PREFIX}enabled`, value: enabled ? 'true' : 'false' },
+    update: { value: enabled ? 'true' : 'false' },
+  })
+}
+
 interface PaymentSettings {
   enabledProviders: PaymentProvider[]
   defaultProvider: PaymentProvider
   bankTransfer: BankTransferSettings
+  payOnDelivery: { enabled: boolean }
 }
 
 export async function getPaymentSettings(): Promise<PaymentSettings> {
   const enabledProviders = await getEnabledPaymentProviders()
   const bankTransfer = await getBankTransferSettings()
+  const payOnDelivery = await getPayOnDeliverySettings()
 
   if (bankTransfer.enabled && (isFilled(bankTransfer.alias) || isFilled(bankTransfer.cbu) || isFilled(bankTransfer.bankName))) {
     enabledProviders.push('BANK_TRANSFER')
+  }
+
+  if (payOnDelivery.enabled) {
+    enabledProviders.push('PAY_ON_DELIVERY')
   }
 
   let configuredDefault: string | null = null
@@ -229,6 +259,7 @@ export async function getPaymentSettings(): Promise<PaymentSettings> {
     enabledProviders,
     defaultProvider,
     bankTransfer,
+    payOnDelivery,
   }
 }
 

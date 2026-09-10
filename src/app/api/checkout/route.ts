@@ -178,7 +178,9 @@ export async function POST(request: NextRequest) {
               ? 'mercadopago'
               : selectedProvider === 'BANK_TRANSFER'
                 ? 'bank_transfer'
-                : 'stripe',
+                : selectedProvider === 'PAY_ON_DELIVERY'
+                  ? 'pay_on_delivery'
+                  : 'stripe',
           deliveryMethod: data.deliveryMethod,
           pickupLocation: pickupDetails?.name,
           pickupAddress: pickupDetails?.address,
@@ -305,6 +307,13 @@ export async function POST(request: NextRequest) {
         await prisma.order.update({
           where: { id: order.id },
           data: { paymentMethod: 'bank_transfer' },
+        });
+      }
+
+      if (selectedProvider === 'PAY_ON_DELIVERY') {
+        await prisma.order.update({
+          where: { id: order.id },
+          data: { paymentMethod: 'pay_on_delivery' },
         });
       }
     } catch (paymentError) {

@@ -4,16 +4,17 @@ import { useEffect, useMemo, useState } from 'react'
 import { CreditCard, Eye, EyeOff, Save } from 'lucide-react'
 
 type PaymentSettingsState = {
-  defaultProvider: 'STRIPE' | 'MERCADO_PAGO' | 'BANK_TRANSFER'
-  enabledProviders: Array<'STRIPE' | 'MERCADO_PAGO' | 'BANK_TRANSFER'>
+  defaultProvider: 'STRIPE' | 'MERCADO_PAGO' | 'BANK_TRANSFER' | 'PAY_ON_DELIVERY'
+  enabledProviders: Array<'STRIPE' | 'MERCADO_PAGO' | 'BANK_TRANSFER' | 'PAY_ON_DELIVERY'>
   stripeEnabled: boolean
   mercadopagoEnabled: boolean
+  payOnDeliveryEnabled: boolean
   hasStripe: boolean
   hasMercadoPago: boolean
   stripeSecretKey: string
   mercadopagoAccessToken: string
   options: Array<{
-    value: 'STRIPE' | 'MERCADO_PAGO' | 'BANK_TRANSFER'
+    value: 'STRIPE' | 'MERCADO_PAGO' | 'BANK_TRANSFER' | 'PAY_ON_DELIVERY'
     label: string
     enabled: boolean
     description?: string
@@ -34,6 +35,7 @@ const DEFAULT_PAYMENT_SETTINGS: PaymentSettingsState = {
   enabledProviders: [],
   stripeEnabled: false,
   mercadopagoEnabled: false,
+  payOnDeliveryEnabled: false,
   hasStripe: false,
   hasMercadoPago: false,
   stripeSecretKey: '',
@@ -73,9 +75,10 @@ export default function AdminPagosPage() {
           ...(paymentSettings.stripeEnabled ? ['STRIPE' as const] : []),
           ...(paymentSettings.mercadopagoEnabled ? ['MERCADO_PAGO' as const] : []),
           ...(bankTransferConfigured ? ['BANK_TRANSFER' as const] : []),
+          ...((paymentSettings as any).payOnDeliveryEnabled ? ['PAY_ON_DELIVERY' as const] : []),
         ])
-      ) as Array<'STRIPE' | 'MERCADO_PAGO' | 'BANK_TRANSFER'>,
-    [paymentSettings.stripeEnabled, paymentSettings.mercadopagoEnabled, bankTransferConfigured]
+      ) as Array<'STRIPE' | 'MERCADO_PAGO' | 'BANK_TRANSFER' | 'PAY_ON_DELIVERY'>,
+    [paymentSettings.stripeEnabled, paymentSettings.mercadopagoEnabled, bankTransferConfigured, (paymentSettings as any).payOnDeliveryEnabled]
   )
 
   const fetchPaymentSettings = async () => {
@@ -90,6 +93,7 @@ export default function AdminPagosPage() {
         ...data,
         hasStripe: !!data.hasStripe,
         hasMercadoPago: !!data.hasMercadoPago,
+        payOnDeliveryEnabled: !!data.payOnDeliveryEnabled,
         stripeSecretKey: '',
         mercadopagoAccessToken: '',
         bankTransfer: {
@@ -127,6 +131,7 @@ export default function AdminPagosPage() {
           stripeSecretKey: paymentSettings.stripeSecretKey,
           mercadopagoAccessToken: paymentSettings.mercadopagoAccessToken,
           bankTransfer: paymentSettings.bankTransfer,
+          payOnDelivery: { enabled: (paymentSettings as any).payOnDeliveryEnabled ?? false },
         }),
       })
 
@@ -168,11 +173,13 @@ export default function AdminPagosPage() {
                   const available =
                     option.value === 'BANK_TRANSFER'
                       ? bankTransferConfigured
-                      : option.value === 'STRIPE'
-                        ? paymentSettings.stripeEnabled
-                        : option.value === 'MERCADO_PAGO'
-                          ? paymentSettings.mercadopagoEnabled
-                          : false
+                      : option.value === 'PAY_ON_DELIVERY'
+                        ? (paymentSettings as any).payOnDeliveryEnabled ?? false
+                        : option.value === 'STRIPE'
+                          ? paymentSettings.stripeEnabled
+                          : option.value === 'MERCADO_PAGO'
+                            ? paymentSettings.mercadopagoEnabled
+                            : false
 
                   return (
                     <div key={option.value} className="flex items-center justify-between rounded-lg border border-gray-700 px-3 py-2">
@@ -426,6 +433,28 @@ export default function AdminPagosPage() {
                       placeholder="Indica cuando enviar comprobante, horarios de confirmacion, etc."
                     />
                   </div>
+                </div>
+              </div>
+
+              <div className="rounded-lg border border-brand-gold/20 bg-brand-gold/5 p-4 space-y-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-sm font-semibold text-white">Reserva — Pago en entrega</p>
+                    <p className="text-xs text-gray-400">El cliente reserva el pedido y paga al recibirlo. Sin redirección a pasarela de pago.</p>
+                  </div>
+                  <label className="flex items-center gap-2 text-sm text-gray-300 shrink-0">
+                    <input
+                      type="checkbox"
+                      checked={(paymentSettings as any).payOnDeliveryEnabled ?? false}
+                      onChange={(e) =>
+                        setPaymentSettings((prev) => ({
+                          ...prev,
+                          payOnDeliveryEnabled: e.target.checked,
+                        })) as any
+                      }
+                    />
+                    Habilitada
+                  </label>
                 </div>
               </div>
 

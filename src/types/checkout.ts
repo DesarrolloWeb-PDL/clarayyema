@@ -11,6 +11,7 @@ export enum PaymentProvider {
   STRIPE = 'STRIPE',
   MERCADO_PAGO = 'MERCADO_PAGO',
   BANK_TRANSFER = 'BANK_TRANSFER',
+  PAY_ON_DELIVERY = 'PAY_ON_DELIVERY',
 }
 
 // Schemas de validación

@@ -480,6 +480,18 @@ export default function OrderConfirmationPage() {
                   </div>
                 )}
 
+                {order.paymentMethod === 'pay_on_delivery' && (
+                  <div className="rounded-lg border border-brand-gold/20 bg-brand-gold/5 p-4 space-y-2">
+                    <p className="text-sm font-semibold text-brand-gold-dark">Reserva — Pago en entrega</p>
+                    <p className="text-sm text-brand-gold-dark">
+                      Tu pedido está reservado. El pago se realiza al momento de la entrega del producto.
+                    </p>
+                    <p className="text-xs text-brand-gold-dark">
+                      Asegurate de tener el monto listo al recibir tu pedido. Aceptamos efectivo y transferencia.
+                    </p>
+                  </div>
+                )}
+
                 <div className="pt-4 border-t">
                   <Link href="/">
                     <Button variant="outline" className="w-full">
